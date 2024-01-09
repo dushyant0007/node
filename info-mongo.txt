@@ -1,0 +1,84 @@
+database(cluster) -> collections(tables) -> documents(rows)
+
+use db-name (create/use)
+
+show dbs //
+
+---------------------------------------------------------
+
+db.tours(collection/table).insertOne({
+        name:"The Forest Hiker",
+        price:293,
+        rating:4.7
+    })
+
+db.tours.insertMany([
+    {
+        name:"The Forest Hiker",
+        price:293,
+        rating:4.7
+    },
+    {
+        name:"The Mountain Climber",
+        price:340,
+        rating:4,8
+    }
+    ])
+
+---------------------------------------------------------
+
+db.tours.find() // to get all docs/rows
+
+db.tours.find({name:"The Forest Hiker"})
+
+// $lte(lessThen-or-equal)
+//the second para (just return the name column of the output)
+db.tours.find({price: {$lte:500}} ,{name:1}) 
+
+// $lt(lessThen) / gte(greaterThen-or-equal)
+db.tours.find({ 
+        price: {$lt:500} , rating:{$gte:4.8} 
+    }) 
+
+//one of the condition needs to be true
+db.tours.find({ 
+        $or : [ {price:{$lte 500}}, {rating:{$gte:4.8} }] 
+    })
+
+---------------------------------------------------------
+
+//if multiple documents are selected only the first one is updated
+// find the document where name is {...} and set its price to 597
+// we can also define and set new properties 
+db.tours.updateOne(
+        {name:"The Show Adventure"},
+        { $set: {price:597} }
+    )
+db.tours.updateMany(
+        { price: {$lt:500} , rating:{$gte:4.8} },
+        { $set: {premium:true} }
+    )
+
+db.tours.replaceOne/Many()
+
+---------------------------------------------------------
+
+db.tours.deleteMany({rating: {$lt:4.8}})
+
+
+//-----mongoose-lib-queries
+
+Model.deleteMany()
+Model.deleteOne()
+Model.find()
+Model.findById()
+Model.findByIdAndDelete()
+Model.findByIdAndRemove()
+Model.findByIdAndUpdate()
+Model.findOne()
+Model.findOneAndDelete()
+Model.findOneAndReplace()
+Model.findOneAndUpdate()
+Model.replaceOne()
+Model.updateMany()
+Model.updateOne()
