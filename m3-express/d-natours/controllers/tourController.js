@@ -3,7 +3,7 @@ const Tour = require(`../models/tourModel`);
 const APIFeatures = require(`${__dirname}/../utils/apiFeatures`)
 
 
-exports.aliasTopTours = (req,res,next)=>{
+exports.aliasTopTours = (req, res, next) => {
     // ?limit=5&sort=price,-ratingAverage
     req.query.limit = '5';
     req.query.sort = 'price,-ratingsAverage';
@@ -27,12 +27,12 @@ exports.getAllTours = async (req, res) => {
         the query against the database.
         */
 
-        const features = new APIFeatures(Tour.find(),req.query)
+        const features = new APIFeatures(Tour.find(), req.query)
             .filter()
             .sort()
             .limitingFields()
             .pagination();
-        
+
 
         //^ EXECUTING QUERY
         //query.sort().select().skip(),limit();
@@ -93,9 +93,13 @@ exports.createTour = async (req, res) => {
 
 exports.updateTour = async (req, res) => {
 
-    try { // new:true / new update document is returned
+    try {
         const tour = await Tour
-            .findByIdAndUpdate(req.params.id, req.body, { new: true, runValidators: true });
+            .findByIdAndUpdate(req.params.id, req.body, { 
+                new: true,  // new:true / new update document is returned
+                runValidators: true // to run the validators of schema
+             });
+
         res.status(200).json({
             status: 'success',
             data: {
@@ -132,37 +136,37 @@ exports.deleteTour = async (req, res) => {
 };
 
 // Aggregation pipeline
-exports.getTourStats = async(req,res)=>{
-    try{
+exports.getTourStats = async (req, res) => {
+    try {
 
         //document pass through each stage one by one, step by step in the defined sequence
         const stats = await Tour.aggregate([
             {
-                $match:{ ratingsAverage : {$gte : 4.5}}
+                $match: { ratingsAverage: { $gte: 4.5 } }
             },
             {
                 $group: {
                     // grouping results by there difficulty
-                    _id: '$difficulty', 
+                    _id: '$difficulty',
                     //defining new field
-                    numTours : {$sum : 1},
+                    numTours: { $sum: 1 },
                     avgRating: { $avg: '$ratingsAverage' },
-                    avgPrice: {$avg:'$price'},
-                    minPrice: {$min: '$price'},
-                    maxPrice: {$max: '$price'}
+                    avgPrice: { $avg: '$price' },
+                    minPrice: { $min: '$price' },
+                    maxPrice: { $max: '$price' }
                 }
             },
             {
-                $sort: {avgPrice: 1}
+                $sort: { avgPrice: 1 }
             },
             {
-                $match: {_id:{$ne:'easy'}}
+                $match: { _id: { $ne: 'easy' } }
             }
         ]);
 
         res.status(200).json({
             status: 'success',
-            data: {stats}
+            data: { stats }
         });
 
     }
@@ -175,40 +179,40 @@ exports.getTourStats = async(req,res)=>{
 }
 
 //finding busiest month of given year
-exports.getMonthlyPlan = async (req,res) =>{
-    try{
+exports.getMonthlyPlan = async (req, res) => {
+    try {
         const year = +req.params.year;
-        
-        const plan =  await Tour.aggregate([
+
+        const plan = await Tour.aggregate([
             {
                 /*
                     unwind deconstruct an array field form input document and output one document 
                     for each element of the array
                 */
-                $unwind : '$startDates'
+                $unwind: '$startDates'
             },
             {
-                $match :{
-                    startDates: {$gte : new Date(`${year}`), $lt : new Date(`${year+1}`)}
+                $match: {
+                    startDates: { $gte: new Date(`${year}`), $lt: new Date(`${year + 1}`) }
                 }
             },
             {
-                $group: { 
+                $group: {
                     //going to accetrect the month from the startDates property
-                    _id:{ $month: '$startDates'},
-                    numTourStarts: { $sum:1},
-                    tours:{ $push : '$name'}
+                    _id: { $month: '$startDates' },
+                    numTourStarts: { $sum: 1 },
+                    tours: { $push: '$name' }
                 }
             },
             {
-                $addFields:{month:'$_id'}
+                $addFields: { month: '$_id' }
             },
 
             {   // _id : 0/1 to exclude/include
-                $project:{ _id : 0}
+                $project: { _id: 0 }
             },
             {
-                $sort : {numTourStarts: -1}
+                $sort: { numTourStarts: -1 }
             }
             // {
             //     //just keeps the first 6 results form past stage
