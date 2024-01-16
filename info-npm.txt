@@ -26,6 +26,8 @@ npm i morgan
 
 //^ ---------
 
-
+// Dubbing Tool - 
+// npm i ndb --save-dev (node debugger tool)
+// npb server.js (enter point)
 
 
