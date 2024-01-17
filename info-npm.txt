@@ -30,4 +30,11 @@ npm i morgan
 // npm i ndb --save-dev (node debugger tool)
 // npb server.js (enter point)
 
+//^ 
+// npm i validator
+const validator = require('validator')
+//in schema
+validate: [validator.isEmail,"Please provide a valid email"]
 
+//^ 
+// npm i bcryptjs
