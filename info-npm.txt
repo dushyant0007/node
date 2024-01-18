@@ -38,3 +38,7 @@ validate: [validator.isEmail,"Please provide a valid email"]
 
 //^ 
 // npm i bcryptjs
+
+//^
+
+// npm i nodemailer
