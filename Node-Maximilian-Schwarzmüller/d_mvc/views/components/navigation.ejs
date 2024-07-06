@@ -5,7 +5,10 @@
         </div>
         <ul class="main-header-list">
             <li class="main-header-list-items"><a class="<%= path === '/' ? 'active':'' %>" href="/">Shop</a></li>
+            <li class="main-header-list-items"><a class="<%= path === '/product' ? 'active':'' %>" href="/products">Products</a></li>
+            <li class="main-header-list-items"><a class="<%= path === '/cart' ? 'active':'' %>" href="/cart">Cart</a></li>
             <li class="main-header-list-items"><a class="<%= path === '/admin/add-product' ? 'active':'' %>" href="/admin/add-product">Add Product</a></li>
+            <li class="main-header-list-items"><a class="<%= path === '/admin/listed-products' ? 'active':'' %>" href="/admin/listed-products">Listed Products</a></li>
         </ul>
     </nav>
 </header>

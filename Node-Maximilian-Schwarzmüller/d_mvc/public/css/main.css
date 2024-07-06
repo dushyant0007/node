@@ -1,3 +1,5 @@
+/* https://colorhunt.co/palette/f9f5f6f8e8eefdcedff2bed1 */
+
 @import url('https://fonts.googleapis.com/css2?family=Playwrite+VN:wght@100..400&display=swap');
 
 * {
@@ -55,9 +57,10 @@ main{
 
         display: flex;
         flex-direction: row;
+        flex-wrap: wrap;
         justify-content: space-evenly;
         align-items: center;
-        gap: 2rem;
+        gap: 2rem 1rem;
 
         .main-header-list-items {
             a {

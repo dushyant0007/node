@@ -10,7 +10,7 @@ const adminRoutes = require('./routes/admin.js')
 const shopRoutes = require('./routes/shop.js')
 
 const app = express()
-console.log(process.cwd())
+
 
 app.set('view engine','ejs')
 app.set('views','views') // where is our views, they are in views folder
