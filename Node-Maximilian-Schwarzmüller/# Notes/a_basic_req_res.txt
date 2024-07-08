@@ -22,4 +22,21 @@ Basic response.headers ->
     res.setHeader('Location','/')
 
 
+______________________
+Dynamic path Segment ->
+    adding seg in path = /products/:productId/etc
+    accessing Segment = req.params.productId
+
+______________________
+Query Parameters ->
+
+    adding query/optional parameters = https://xyx.com/pth?param=value&a=2
+    accessing query parameters = req.query (obj of key value pairs)
+
+
+
+
+
+
+
 */

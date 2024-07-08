@@ -9,7 +9,8 @@ route.get('/products',shopController.getProducts)
 
 route.get('/cart',shopController.getCart)
 route.post('/cart',shopController.postCart)
-
+route.post('/cart/reduce-qty',shopController.postRecedeCartQty)
+    
 route.get('/checkout',shopController.getCheckout) 
 
 route.get('/orders',shopController.getOrders)
