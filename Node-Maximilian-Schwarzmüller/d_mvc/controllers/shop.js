@@ -91,7 +91,7 @@ exports.postCart = (req, res, next) => {
         })
         .then((cartId) => {
             return Promise.all(
-                [CartItems.findOne({ where: { cartId: cartId, productId: productId }}),
+                [CartItem.findOne({ where: { cartId: cartId, productId: productId }}),
                     cartId]);
         })
         .then(([cartItem, cartId]) => {
