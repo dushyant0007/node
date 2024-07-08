@@ -1,0 +1,39 @@
+<%- include('../components/head.ejs') %>
+    <link rel="stylesheet" href="/css/form.css">
+    </head>
+
+    <body>
+
+        <%- include('../components/navigation.ejs') %>
+
+            <main>
+                <form class="add-product-form" action="/admin/edit-product" method="post">
+
+                    <input type="hidden" name="productId" value="<%= product.id %>">
+
+                    <div class="form-inputs-and-labels">
+                        <label for="input-title">Title</label>
+                        <input type="text" name="title" id="input-title" value="<%= product.title %>">
+                    </div>
+
+                    <div class="form-inputs-and-labels">
+                        <label for="input-image-url">Image URL</label>
+                        <input type="url" name="imageUrl" id="input-image-url" value="<%= product.imageUrl %>">
+                    </div>
+
+                    <div class="form-inputs-and-labels">
+                        <label for="input-price">Price</label>
+                        <input type="number" name="price" id="input-price" value="<%= product.price %>"">
+                    </div>
+
+                    <div class=" form-inputs-and-labels">
+                        <label for="input-description">Description</label>
+                        <textarea name="description" rows="5"><%= product.description %></textarea>
+                    </div>
+
+                    <button type="submit">Update Product</button>
+
+                </form>
+            </main>
+
+            <%- include('../components/end.ejs') %>
