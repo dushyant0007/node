@@ -27,7 +27,7 @@
                         </div>
                         <div class="card__actions">
                             <form action="/cart/reduce-qty" method="post">
-                                <input type="hidden" name="cart_item_id" value="<%= cartProduct.cart_item_id %>">
+                                <input type="hidden" name="cart_item_id" value="<%= cartProduct._id %>">
                                 <button type="submit">Decrease Qty </button>
                             </form>
                         </div>

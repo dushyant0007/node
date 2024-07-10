@@ -1,0 +1,19 @@
+const mongodb = require('mongodb')
+const MongoClient = mongodb.MongoClient
+
+const client = await MongoClient.connect('mongodb+srv://admin:JhaGZkBkBTyMda69@cluster0.gfskg3g.mongodb.net/');
+client.db('shop_db').collection('table_name').[collection operation methods]
+
+------| collection operation methods using mongodb |--------------------------------
+|
+|   insertOne({colName:val,...}) - return promise
+|   insertMany([{...},{...}])    - return promise
+|   
+|   find({title:'something'},projection)    - return db curser 
+|   find().next()                - return the next item
+|   find().toArray()             - return promise (all data at once)
+|   findOne()
+|
+|   updateOne/Many({..filters},$set: ...what to update)
+|   deleteOne/Many({..filters})
+---------------------------------------------------------------------------------

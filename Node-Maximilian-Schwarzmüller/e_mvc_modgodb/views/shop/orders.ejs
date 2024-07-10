@@ -7,8 +7,18 @@
 
     <%- include('../components/navigation.ejs') %>
 
-    <main>
-        <h1>Index</h1>
-    </main>
+    <% for(const order of orders){ %>
+        <% for(const product of order){ %>
+
+             <h2><%= product.title %></h2>
+             <img style="width: 100px;" src="<%= product.imageUrl %>" alt="">
+             <p><%= product.description %></p>
+             <p><%= product.price %></p>
+             <h3><%= product.quantity %></h3>
+                <hr>
+        <% } %>
+        <hr>
+        <hr>
+    <% } %>
 
 <%- include('../components/end.ejs') %>

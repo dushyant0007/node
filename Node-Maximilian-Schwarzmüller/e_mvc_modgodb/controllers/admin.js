@@ -1,4 +1,4 @@
-
+const Product = require('../models/product')
 
 module.exports.getAddProduct = (req, res, next) => {
     res.render('admin/add-product.ejs',
@@ -14,11 +14,13 @@ exports.postAddProduct = (req, res, next) => {
     const imageUrl = req.body.imageUrl;
     const price = req.body.price;
     const description = req.body.description;
-    const userId = req.user.id
+    const userId = req.user._id
 
-    Product.create({ userId, title, imageUrl, price, description })
-        .then((result) => { 
-            res.redirect('/admin/listed-products')
+    const new_product = new Product(title, imageUrl, price, description,userId)
+    Product.save(new_product)
+        .then((result) => {
+            // res.redirect('/admin/listed-products')
+            res.redirect('/products')
         })
         .catch((result) => { console.log(result) });
 }
@@ -27,41 +29,35 @@ module.exports.getEditProduct = (req, res, next) => {
 
     const productId = req.params.productId;
     // Product.findByPk(productId)
-    Product.findOne({where: {id:productId,userId:req.user.id}})
-        .then((result) => {
-            if(!result)
+    Product.findById(productId)
+        .then((product) => {
+            if (!product)
                 throw Error(`User has no such product with id: ${productId}`,)
             else
                 res.render('admin/edit-product.ejs',
                     {
                         pageTitle: "Edit Product",
                         path: '/admin/edit-product',
-                        product: result
+                        product: product
                     });
         })
         .catch((e) => {
-            res.render('404.ejs', { pageTitle: 'wrong request', path: '',error:e })
+            res.render('404.ejs', { pageTitle: 'wrong request', path: '', error: e })
         });
 }
 
 module.exports.postEditProduct = (req, res, next) => {
     const productId = req.body.productId
+    const updatedProduct = new Product(req.body.title, req.body.imageUrl, req.body.price, req.body.description)
     // Product.findByPk(productId)    
-    Product.findOne({where: {id:productId,userId:req.user.id}})
-    .then((product) => {
-        product.title = req.body.title
-        product.price = req.body.price
-        product.description = req.body.description
-        product.imageUrl = req.body.imageUrl
-        return product.save()
-    })
-    .then((result)=>{
-        res.redirect('/admin/listed-products')
-    })
-
-    .catch(() => {
-        res.render('404.ejs', { pageTitle: "PageNotFount", path: '' })
-    })
+    Product.updateById(productId, updatedProduct)
+        .then(() => {
+            console.log('product updated successfully')
+            res.redirect('/admin/listed-products')
+        })
+        .catch(() => {
+            res.render('404.ejs', { pageTitle: "PageNotFount", path: '' })
+        })
 }
 
 
@@ -69,7 +65,7 @@ module.exports.postEditProduct = (req, res, next) => {
 
 exports.getListedProducts = (req, res, next) => {
 
-    Product.findAll({ where:{userId:req.user.id},raw: true })
+    Product.fetchAll()
         .then((result) => {
             res.render('admin/listed-products', {
                 products: result,
@@ -83,9 +79,16 @@ exports.getListedProducts = (req, res, next) => {
 }
 
 exports.deleteListedProduct = (req, res, next) => {
-    if (req.body.productId) {
-        Product.destroy({where:{id:req.body.productId}})
-        res.redirect('/admin/listed-products')
+    const productId = req.body.productId;
+    if (productId) {
+        Product.deleteById(productId)
+            .then(()=>{
+                console.log('product deleted successfully');
+                res.redirect('/admin/listed-products')
+            })
+            .catch (error => {
+                console.log(error)
+            })
     }
     else {
         res.redirect('/error')

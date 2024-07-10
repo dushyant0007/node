@@ -1,8 +1,9 @@
-
-
+// const db = require('../util/dbConnection').getDb()
+const Product = require('../models/product');
+const User = require('../models/user')
 
 exports.getIndex = (req, res, next) => {
-    Product.findAll({ raw: true })
+    Product.fetchAll()
         .then((result) => {
             res.render('shop/index.ejs', {
                 products: result,
@@ -15,9 +16,8 @@ exports.getIndex = (req, res, next) => {
 }
 
 exports.getProducts = (req, res, next) => {
-    Product.findAll({ raw: true })
+        Product.fetchAll()
         .then((result) => {
-
             res.render('shop/product-list.ejs', {
                 products: result,
                 pageTitle: 'All Products',
@@ -32,7 +32,7 @@ exports.getProduct = (req, res, next) => {
     const product_id = req.params.productId;
 
     if (product_id)
-        Product.findByPk(product_id)
+        Product.findById(product_id)
             .then((result) =>
                 res.render('shop/product-details.ejs', {
                     product: result,
@@ -45,21 +45,9 @@ exports.getProduct = (req, res, next) => {
 
 
 exports.getCart = (req, res, next) => {
-
-    Cart.findOne({ where: { userId: req.user.id }, raw: true })
-        .then((result) => {
-            if (!result)
-                return Cart.create({ userId: req.user.id }).id
-            return result.id
-        })
-        .then(cartId => {
-            return db.query('SELECT *,cart_items.id as cart_item_id FROM cart_items JOIN products on cart_items.productId = products.id where cartId=?',
-                {
-                    replacements: [cartId],
-                    type: Sequelize.QueryTypes.SELECT
-                })
-        })
+    User.getCart(req.user._id)
         .then(products => {
+            
             res.render('shop/cart.ejs', {
                 pageTitle: 'Your Cart',
                 path: '/cart',
@@ -74,29 +62,9 @@ exports.getCart = (req, res, next) => {
 
 
 exports.postCart = (req, res, next) => {
-
     const productId = req.body.productId;
-
-    Cart.findOne({ where: { userId: req.user.id }, raw: true })
-        .then((result) => {
-            if (!result)
-                return Cart.create({ userId: req.user.id }).id
-            return result.id
-        })
-        .then((cartId) => {
-            return Promise.all(
-                [CartItem.findOne({ where: { cartId: cartId, productId: productId }}),
-                    cartId]);
-        })
-        .then(([cartItem, cartId]) => {
-            if (cartItem) {
-                cartItem.quantity += 1
-                return cartItem.save();
-            }
-            else {
-                return cartItem.create({ quantity: 1, productId: productId, cartId: cartId })
-            }
-        })
+    const userId = req.user._id
+        User.addToCart(productId,userId)
         .then(() => {
             res.redirect('/products')
         })
@@ -109,20 +77,8 @@ exports.postCart = (req, res, next) => {
 exports.postRecedeCartQty = (req, res, next) => {
 
     const cart_product_id = req.body.cart_item_id;
-
-    CartItem.findByPk(cart_product_id)
-        .then((result) => {
-            if (result)
-                if (result.quantity > 1) {
-                    result.quantity -= 1
-                    result.save();
-                } else {
-                    result.destroy()
-                }
-            else {
-                throw Error('There is not such product in cart')
-            }
-        })
+    const user_id = req.user._id
+    User.decreaseCartItemQuality(user_id,cart_product_id)
         .then(() => {
             res.redirect('/cart')
         })
@@ -138,11 +94,24 @@ exports.getCheckout = (req, res, next) => {
         path: '/checkout',
     })
 }
+
 exports.getOrders = (req, res, next) => {
-    res.render('shop/orders.ejs', {
-        pageTitle: 'Your Orders',
-        path: '/cart',
-    })
+    const user_id =req.user._id
+    User.getOrders(user_id)
+    .then((orders)=>{
+        console.log(orders)
+        res.render('shop/orders.ejs', {
+            pageTitle: 'Your Orders',
+            path: '/cart',
+            orders:orders
+        })
+    })  
 }
 
+exports.postOrder = (req,res,next) => {
+    const userId = req.user._id
+    // put cart into orders
+    User.addOrder(userId)
+    res.send('ok bro')
+}
 
