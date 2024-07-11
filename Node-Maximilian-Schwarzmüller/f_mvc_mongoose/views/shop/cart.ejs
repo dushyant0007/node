@@ -1,0 +1,43 @@
+
+<%- include('../components/head.ejs') %>
+<link rel="stylesheet" href="/css/product.css">
+</head>
+
+<body>
+
+    <%- include('../components/navigation.ejs') %>
+
+    <main>
+        <% if (cartProducts.length > 0) { let totalPrice = 0 %>
+            <div class="grid">
+                <% for (let cartProduct of cartProducts) {  totalPrice += cartProduct.productId.price * cartProduct.quantity; %>
+                    <article class="card product-item">
+                        <header class="card__header">
+                            <h1 class="product__title"><%= cartProduct.title %></h1>
+                        </header>
+                        <div class="card__image">
+                            <img src="<%= cartProduct.productId.imageUrl %>" alt="A Book">
+                        </div>
+                        <div class="card__content">
+                            <h2 class="product__price">$<%= cartProduct.productId.price %></h2>
+                            <p class="product__description"><%= cartProduct.productId.description %>></p>
+                        </div>
+                        <div class="card__content">
+                            <h2 class="product__price">Qty <%= cartProduct.quantity %></h2>
+                        </div>
+                        <div class="card__actions">
+                            <form action="/cart/reduce-qty" method="post">
+                                <input type="hidden" name="cart_item_id" value="<%= cartProduct.productId._id %>">
+                                <button type="submit">Decrease Qty </button>
+                            </form>
+                        </div>
+                    </article>
+                <% }%>
+            </div>
+            <div><h2>Total Price : <%= totalPrice %></h2></div>
+        <% } else {%>
+            <h1>No Product Available</h1>
+        <% } %>
+    </main>
+
+<%- include('../components/end.ejs') %>

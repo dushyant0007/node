@@ -1,0 +1,23 @@
+
+<%- include('../components/head.ejs') %>
+
+</head>
+
+<body>
+
+    <%- include('../components/navigation.ejs') %>
+
+    <% for(const order of orders){ %>
+        <% for(const product of order.order ){ %>
+             <h2><%= product.product.title %></h2>
+             <img style="width: 100px;" src="<%= product.product.imageUrl %>" alt="">
+             <p><%= product.product.description %></p>
+             <p><%= product.product.price %></p>
+             <h3><%= product.product.quantity %></h3>
+                <hr>
+        <% } %>
+        <hr>
+        <hr>
+    <% } %>
+
+<%- include('../components/end.ejs') %>
