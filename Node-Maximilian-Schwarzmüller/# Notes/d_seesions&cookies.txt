@@ -1,0 +1,27 @@
+_____________________________________________________________________
+======= Cookie => Stored data on Client Side ========================
+---------------------------------------------------------------------
+|
+|   can be stored in the browser by setting the res set-cookie header
+|         res.setHeader(
+|            'set-Cookie',
+|                "isLoggedIn=true;
+|                 Expires=httpDateFormatDate/default-browserClose ;
+|                 Max-Age=10 /*seconds*/ ;
+|                 Secure /*only set when page is served by https*/;
+|                 HttpOnly /* cookie can't be accessed by client side js */
+|               "
+|        )
+|
+|   
+
+_____________________________________________________________________
+======== Session -> store data on server side =======================
+_____________________________________________________________________
+|
+|   Goal => we want all info shared among all request of the same user
+|   The client need to tell the server to which session he belongs.
+|   So we use a cookie to store the id(hashed) of the session
+|
+|   we use express-session to manage sessions
+|
