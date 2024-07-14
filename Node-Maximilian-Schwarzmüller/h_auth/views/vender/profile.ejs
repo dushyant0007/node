@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="/js/vender/profile.js"></script>
+    <title>Document</title>
+</head>
+<body>
+    <div class="vender-profile">
+
+        <div class="profile-picture">
+            <img src="<%= venderProfile.profilePictureUrl %>" alt="">
+        </div>
+
+        <div class="meta-data">
+            <h2>This Month Ratings</h2>
+            <p>Profile Viewed Count</p>
+        </div>
+
+        <form class="profile-name-field" action="/vender/profile/editName" method="post">
+            <label for="name">Name</label>
+            <input readonly id="name" type="text" name="name" value="<%= venderProfile.name %>">
+
+            <button onclick="enableEdit(event)">Edit</button>
+            <button type="submit">Save</button>
+        </form>
+
+        <form class="profile-email-field" action="/vender/profile/editEmail" method="post">
+            <label for="email">Email</label>
+            <input readonly id="email" type="email" name="email" value="<%= venderProfile.email %>">
+
+            <button onclick="enableEdit(event)">Edit</button>
+            <button type="submit">Save</button>
+        </form>
+
+        <form class="profile-email-field" action="/vender/profile/editPhoneNumber" method="post">
+            <label for="phoneNumber">Phone Number</label>
+            <input readonly id="phoneNumber" type="number" name="phoneNumber" value="<%= venderProfile.phoneNumber %>">
+
+            <button onclick="enableEdit(event)">Edit</button>
+            <button type="submit">Save</button>
+        </form>
+
+        <form class="profile-email-field" action="/vender/profile/editAddress" method="post">
+            <label for="address">Address</label>
+            <input readonly  type="text" id="address" name="address" value="<%= venderProfile.address %>">
+
+            <button onclick="enableEdit(event)">Edit</button>
+            <button type="submit">Save</button>
+        </form>
+
+
+    </div>
+</body>
+</html>

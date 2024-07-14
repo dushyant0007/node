@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Service</title>
+</head>
+<body>
+
+    <form action="/vender/addService/photographer"  method="post"  enctype="multipart/form-data">
+
+        <textarea wrap="soft" rows="30" cols="50" name="serviceDescription" id="" placeholder="detailed descriptions of the services offered"></textarea>
+        <textarea wrap="soft" rows="30" cols="50" name="packagesPricing" id="" placeholder="ex - Pricing Packages,Album Charges,Image Editing and Team Size etc ..."></textarea>
+        
+        <h2>Availability Calendar</h2>
+        
+        <label for="yearOfExperience"></label>
+        <input name="yearOfExperience" type="number" id="yearOfExperience">
+        
+        <textarea wrap="soft" rows="30" cols="50" name="certificationAndAwards" id="" placeholder="Certifications or Awards"></textarea>
+        <textarea wrap="soft" rows="30" cols="50" name="equipments" id="" placeholder="example - Canon EOS 5D Mark IV, Nikon D850, Various Lenses"></textarea>
+
+        <textarea wrap="soft" rows="30" cols="50" name="bio" id="" placeholder="Write about yourself and/or your organization ethics, values "></textarea>
+        
+        <label for="languagesSpoken">Languages You Speak</label>
+        <input id="languagesSpoken" type="text" name="languagesSpoken">
+
+        <label for="travelWillingness">Travel Willingness</label>
+        <textarea id="travelWillingness" wrap="soft" rows="30" cols="50" name="travelWillingness" id="" placeholder="example - Willing to travel up to 100 Km for a job "></textarea>
+        
+    </form>
+    
+</body>
+</html>

@@ -7,7 +7,7 @@ _____________________________________________________________________
 |            'set-Cookie',
 |                "isLoggedIn=true;
 |                 Expires=httpDateFormatDate/default-browserClose ;
-|                 Max-Age=10 /*seconds*/ ;
+|                 Max-Age=10 /*milliseconds*/ ;
 |                 Secure /*only set when page is served by https*/;
 |                 HttpOnly /* cookie can't be accessed by client side js */
 |               "
@@ -24,4 +24,4 @@ _____________________________________________________________________
 |   So we use a cookie to store the id(hashed) of the session
 |
 |   we use express-session to manage sessions
-|
+|   and we use connect-mongodb-session to store our session data in db instead of RAM
