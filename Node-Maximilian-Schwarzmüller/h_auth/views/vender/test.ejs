@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Album Manager</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .album {
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin-bottom: 20px;
+        }
+
+        .image-preview {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .image-container {
+            position: relative;
+        }
+
+        .image-container img {
+            max-width: 100px;
+            max-height: 100px;
+        }
+
+        .delete-btn {
+            position: absolute;
+            top: 0;
+            right: 0;
+            background-color: red;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Album Manager</h1>
+    <form id="albumForm">
+        <label for="albumName">Album Name:</label>
+        <input type="text" id="albumName" required>
+        <button type="submit">Create Album</button>
+    </form>
+
+    <div id="albums"></div>
+
+    <script>
+        const albumForm = document.getElementById('albumForm');
+        const albumsContainer = document.getElementById('albums');
+        const albums = {};
+
+        albumForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const albumName = document.getElementById('albumName').value;
+            if (!albums[albumName]) {
+                albums[albumName] = [];
+                createAlbumElement(albumName);
+                albumForm.reset();
+            } else {
+                alert('Album already exists!');
+            }
+        });
+
+        function createAlbumElement(albumName) {
+            const albumDiv = document.createElement('div');
+            albumDiv.className = 'album';
+            albumDiv.innerHTML = `
+                <h2>${albumName}</h2>
+                <input type="file" accept="image/*" multiple onchange="handleImageUpload(event, '${albumName}')">
+                <div class="image-preview" id="preview-${albumName}"></div>
+                <button onclick="uploadAlbum('${albumName}')">Upload Album</button>
+            `;
+            albumsContainer.appendChild(albumDiv);
+        }
+
+        function handleImageUpload(event, albumName) {
+            const files = event.target.files;
+            const previewContainer = document.getElementById(`preview-${albumName}`);
+
+            for (const file of files) {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    const imgSrc = e.target.result;
+                    albums[albumName].push(file);
+                    addImageToPreview(imgSrc, albumName, albums[albumName].length - 1);
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        function addImageToPreview(imgSrc, albumName, index) {
+            const previewContainer = document.getElementById(`preview-${albumName}`);
+            const imageContainer = document.createElement('div');
+            imageContainer.className = 'image-container';
+            imageContainer.innerHTML = `
+                <img src="${imgSrc}" alt="Preview">
+                <button class="delete-btn" onclick="deleteImage('${albumName}', ${index})">X</button>
+            `;
+            previewContainer.appendChild(imageContainer);
+        }
+
+        function deleteImage(albumName, index) {
+            albums[albumName].splice(index, 1);
+            updateAlbumPreview(albumName);
+        }
+
+        function updateAlbumPreview(albumName) {
+            const previewContainer = document.getElementById(`preview-${albumName}`);
+            previewContainer.innerHTML = '';
+            albums[albumName].forEach((file, index) => {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    const imgSrc = e.target.result;
+                    addImageToPreview(imgSrc, albumName, index);
+                };
+                reader.readAsDataURL(file);
+            });
+        }
+
+        function uploadAlbum(albumName) {
+
+            const formData = new FormData();
+            
+            formData.append('albumName', albumName);
+
+            albums[albumName].forEach((file, index) => {
+                formData.append(`image_${index}`, file);
+            });
+
+            fetch('/vender/temp', {
+                method: 'post',
+                body: formData
+            })
+                // .then(response => response.json())
+                .then(data => {
+                    console.log('Success:', data);
+                    alert(`Album "${albumName}" uploaded successfully!`);
+                })
+                .catch((error) => {
+                    console.error('Error:', error);
+                    alert('An error occurred while uploading the album.');
+                });
+        }
+    </script>
+</body>
+
+</html>

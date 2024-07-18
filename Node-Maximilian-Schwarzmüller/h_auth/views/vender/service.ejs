@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Service</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 2rem;
+        }
+
+        form {
+            max-width: 60rem;
+            margin: 4rem auto;
+            padding: 2rem;
+            border: 0.1rem solid #ccc;
+            border-radius: 1rem;
+            box-shadow: 0 0 1rem rgba(0, 0, 0, 0.1);
+        }
+
+        .form-group {
+            margin-bottom: 2rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        .form-group {
+
+            textarea,
+            input {
+                width: 100%;
+                padding: 1rem;
+                border: 0.1rem solid #ccc;
+                border-radius: 0.5rem;
+                resize: vertical;
+                min-height: 10rem;
+                box-sizing: border-box;
+            }
+
+            input {
+                min-height: 2.5rem;
+            }
+
+            .price-input-group {
+                margin-bottom: 1rem;
+                display: flex;
+                align-items: center;
+            }
+
+            .price-input-group input[type="number"] {
+                width: 30%;
+                margin-right: 1rem;
+            }
+
+            .price-input-group select {
+                width: 20%;
+                margin-right: 1rem;
+                padding: 1rem;
+                border: 0.1rem solid #ccc;
+                border-radius: 0.5rem;
+                box-sizing: border-box;
+            }
+        }
+
+        h2 {
+            margin-top: 2rem;
+        }
+
+        .toggle-button {
+            margin-bottom: 2rem;
+        }
+
+        .radio-group {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+        }
+
+        .radio-group label {
+            margin-right: 2rem;
+        }
+
+        .radio-group input[type="radio"] {
+            margin-right: 0.5rem;
+        }
+
+        .update-button {
+            background-color: #4CAF50;
+            color: #fff;
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 0.5rem;
+            cursor: pointer;
+        }
+
+        .update-button:hover {
+            background-color: #3e8e41;
+        }
+    </style>
+</head>
+
+<body>
+
+    <form action="/vender/editService" method="post">
+
+        
+        <div class="form-group">
+            
+        </div>
+
+        <div class="form-group">
+            <label for="businessName">Years of Experience</label>
+            <input name="businessName" type="text" id="businessName" value="<%= service.businessName %>">
+        </div>
+
+        <div class="form-group">
+            <label for="serviceDescription">Detailed descriptions of the services offered</label>
+            <textarea wrap="soft" name="serviceDescription" id="serviceDescription"
+                value="<%= service.serviceDescription %>"></textarea>
+        </div>
+
+        <div class="form-group">
+            <label for="pricingPackages">Enter : Pricing Packages, Album Charges, Image Editing and Team Size
+                etc...</label>
+            <textarea wrap="soft" name="pricingPackages" id="pricingPackages"
+                value="<%= service.pricingPackages %>"></textarea>
+        </div>
+
+        <h2>Availability Calendar</h2>
+
+        <div class="form-group">
+            <label for="yearsOfExperience">Years of Experience</label>
+            <input name="yearsOfExperience" type="number" id="yearsOfExperience"
+                value="<%= service.yearsOfExperience %>" min="0">
+        </div>
+
+        <div class="form-group">
+            <label for="certificationsAndAwards">Certifications or Awards</label>
+            <textarea wrap="soft" name="certificationsAndAwards" id="certificationsAndAwards"
+                value="<%= service.certificationsAndAwards %>"></textarea>
+        </div>
+
+        <div class="form-group">
+            <label for="equipmentDetails">Equipment Details Example : Canon EOS 5D Mark IV, Nikon D850, Various Lenses</label>
+            <textarea wrap="soft" name="equipmentDetails" id="equipmentDetails" value="<%= service.equipmentDetails %>"></textarea>
+        </div>
+
+        <div class="form-group">
+            <label for="bio">Write about yourself and/or your organization ethics, values...etc</label>
+            <textarea wrap="soft" name="bio" id="bio" value="<%= service.bio %>"></textarea>
+        </div>
+
+        <div class="form-group">
+            <label for="spokenLanguages">Languages You Speak</label>
+            <input id="spokenLanguages" type="text" name="spokenLanguages" value="<%= service.spokenLanguages %>">
+        </div>
+
+        <div class=" form-group">
+            <label for="travelTermsAndConditions">Travel Willingness and Terms & Condition Example : Willing to travel up to
+                100 Km for a job extra charges etc .. </label>
+            <textarea id="travelTermsAndConditions" wrap="soft" name="travelTermsAndConditions"
+                value="<%= service.travelTermsAndConditions %>"></textarea>
+        </div>
+
+        <div class="form-group">
+            <label for="estimatedPrice">Estimated Price</label>
+            <div class="price-input-group">
+                <input type="number" id="estimatedPrice" name="estimatedPrice" value="<%= service.estimatedPrice %>" min="0">
+                <select id="priceTimeUnit" name="priceTimeUnit" >
+                    <option value="perDay">perDay</option>
+                    <option value="perHour">PerHour</option>
+                </select>
+            </div>
+            <label for="estimatedPriceDescription"> Price Descriptions (What is included in the price) </label>
+            <textarea id="estimatedPriceDescription" wrap="soft" name="estimatedPriceDescription"
+                value="<%= service.estimatedPriceDescription %>"></textarea>
+        </div>
+
+        <div class="toggle-button">
+            <label for="serviceStatus">Service Status</label>
+            <div class="radio-group">
+                <label>
+                    <input type="radio" id="serviceStatus" name="serviceActiveStatus" value="true" <% if(service.serviceActiveStatus){%> checked <%}%> >
+                        Active
+                </label>
+                <label>
+                    <input type="radio" id="serviceStatus" name="serviceActiveStatus" value="false" <% if(!service.serviceActiveStatus){%> checked <%}%> >
+                        Pause
+                </label>
+            </div>
+        </div>
+
+        <input type="hidden" name="serviceId" value="<%= service._id %>">
+
+        <button type="submit" class="update-button">Update</button>
+
+    </form>
+
+</body>
+
+</html>

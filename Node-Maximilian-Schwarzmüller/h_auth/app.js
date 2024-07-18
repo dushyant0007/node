@@ -20,16 +20,16 @@ app.use(session({
     secret: 'cookie-encrypt-key',
     saveUninitialized: false,
     resave: false,
-    cookie: { maxAge: 1000 * 60 * 60 },
+    cookie: { maxAge: 1000 * 60 * 60 * 60 },
     store: mongo_session_store.create({mongoUrl:MONGO_CONNECTION_STRING})
     })
 );
 
-app.use((req, res, next) => {
+app.use(async (req, res, next) => {
     if (req.session.user) {
-        req.user = User.findById(req.session.user._id)
+        req.user = await User.findById(req.session.user._id);
     }
-    next()
+    next() 
 })
 
 // const shopRoutes = require('./routes/shop')
@@ -40,7 +40,8 @@ app.use('/vender', venderRoutes)
 
 
 app.use('/', (req, res) => {
-    res.send('Route does not exists')
+    // res.send('Route does not exists')
+    res.render('vender/test.ejs')
 })
 
 mongoose.connect(MONGO_CONNECTION_STRING)

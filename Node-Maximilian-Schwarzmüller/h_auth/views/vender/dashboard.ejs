@@ -1,16 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
+
 <body>
     <h1>Hello</h1>
 
-    <form action="/vender/addService" method="post">
+    <form action="/vender/addNewService" method="post">
         <fieldset style="display: inline;">
-            <legend>Add Service</legend>  
+            <legend>Add Service</legend>
             <label for="servicType">Select Service Type</label>
             <select id="servicType" name="serviceType">
                 <option value="photographer">photographer</option>
@@ -20,5 +22,21 @@
         </fieldset>
     </form>
 
+    <fieldset style="display: inline;">
+        <legend>Your Service</legend>
+        <% if (services.length == 0){ %>
+            <h3>You have no services yet</h3>
+        <% } else { %>
+            <% for(service of services) { %>
+                <form action="/vender/getEditService" method="post">
+                    <label for="servicType"><%= service.serviceType %></label>
+                    <input type="hidden" name="serviceId" value="<%= service._id %>">
+                    <button type="submit">Edit Service</button>
+                </form>
+            <% } %>
+        <% } %>
+    </fieldset>
+
 </body>
+
 </html>

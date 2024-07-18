@@ -12,8 +12,11 @@ router.get('/signup',venderAuthController.getSignUp)
 router.post('/signup',venderAuthController.postSignUp)
 
 router.get('/dashboard',venderDashboardController.getDashboard)
-router.post('/addService',venderDashboardController.postAddService)
-router.post('/addService/:serviceType',venderDashboardController.postAddServiceServiceName)
+router.post('/addNewService',venderDashboardController.postAddNewService)
+router.post('/getEditService',venderDashboardController.postGetEditService)
+router.post('/editService',venderDashboardController.postUpdateService)
+
+router.post('/temp',venderDashboardController.postTemp)
 
 router.get('/profile',venderProfileController.getProfile)
 router.post('/profile/editName',venderProfileController.postEditName)
