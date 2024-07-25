@@ -20,7 +20,7 @@
             <p>Profile Viewed Count</p>
         </div>
 
-        <form class="profile-name-field" action="/vendor/profile/editName" method="post">
+        <form class="profile-name-field" action="/vendor/profile/edit-name" method="post">
             <label for="name">Name</label>
             <input readonly id="name" type="text" name="name" value="<%= vendorProfile.name %>">
 
@@ -28,7 +28,7 @@
             <button type="submit">Save</button>
         </form>
 
-        <form class="profile-email-field" action="/vendor/profile/editEmail" method="post">
+        <form class="profile-email-field" action="/vendor/profile/edit-email" method="post">
             <label for="email">Email</label>
             <input readonly id="email" type="email" name="email" value="<%= vendorProfile.email %>">
 
@@ -36,7 +36,7 @@
             <button type="submit">Save</button>
         </form>
 
-        <form class="profile-email-field" action="/vendor/profile/editPhoneNumber" method="post">
+        <form class="profile-email-field" action="/vendor/profile/edit-phone-number" method="post">
             <label for="phoneNumber">Phone Number</label>
             <input readonly id="phoneNumber" type="number" name="phoneNumber" value="<%= vendorProfile.phoneNumber %>">
 
@@ -44,12 +44,25 @@
             <button type="submit">Save</button>
         </form>
 
-        <form class="profile-email-field" action="/vendor/profile/editAddress" method="post">
+        <form class="profile-email-field" action="/vendor/profile/edit-address" method="post">
             <label for="address">Address</label>
             <input readonly type="text" id="address" name="address" value="<%= vendorProfile.address %>">
 
             <button onclick="enableEdit(event)">Edit</button>
             <button type="submit">Save</button>
+        </form>
+
+        <form class="profile-email-field" action="/vendor/profile/reset-password" method="post">
+            <label for="oldPassword">Old Password</label>
+            <input type="password" id="oldPassword" name="oldPassword">
+
+            <label for="newPassword">New Password</label>
+            <input type="password" id="newPassword" name="newPassword">
+
+            <label for="confirmPassword">Confirm Password</label>
+            <input type="password" id="confirmPassword" name="confirmPassword">
+
+            <button type="submit">Rest Password</button>
         </form>
 
 

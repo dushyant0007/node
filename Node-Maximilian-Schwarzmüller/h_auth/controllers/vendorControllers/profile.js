@@ -1,5 +1,6 @@
 const vendor = require('../../models/vendor')
-
+const User = require('../../models/user')
+const bcrypt = require('bcryptjs')
 
 exports.getProfile = async (req, res, next) => {
 
@@ -49,4 +50,28 @@ exports.postEditAddress = async (req, res, next) => {
     await vendorDetails.save();
 
     res.redirect('/vendor/profile');
+}
+
+exports.postResetPassword = async (req,res) => {
+
+    const oldPassword = req.body.oldPassword;   
+    const newPassword = req.body.newPassword;   
+    const conformPassword = req.body.confirmPassword; 
+
+    const currUser = await User.findById(req.user._id,{password:1,_id:0})
+
+    console.log(newPassword,conformPassword)
+
+    if(newPassword != conformPassword)
+        return res.json('The New Password and Conform Password did not match')
+
+    if(bcrypt.compare(oldPassword,currUser.password))
+        await User.findByIdAndUpdate(
+            {_id:req.user._id},
+            { $set:{password: await bcrypt.hash(newPassword, 12) }},
+            { new: true }
+        );
+    
+    res.json('Password Updated Successful')
+    
 }

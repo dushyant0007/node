@@ -2,7 +2,7 @@
 function isVenderAuthenticated(req,res,next) {
     if (!req.session.user || req.session.user.userType != 'vendor') {
         console.log(req.session.user)
-        return res.redirect('/vendor/login');
+        return res.redirect('/vendor/auth/login');
     }
     else
         next();

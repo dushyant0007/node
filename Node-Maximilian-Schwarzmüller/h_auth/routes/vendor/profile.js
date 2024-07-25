@@ -10,6 +10,7 @@ router.post('/edit-name',vendorProfileController.postEditName)
 router.post('/edit-email',vendorProfileController.postEditEmail)
 router.post('/edit-phone-number',vendorProfileController.postEditPhoneNumber)
 router.post('/edit-address',vendorProfileController.postEditAddress)
+router.post('/reset-password',vendorProfileController.postResetPassword)
 
 
 module.exports = router
