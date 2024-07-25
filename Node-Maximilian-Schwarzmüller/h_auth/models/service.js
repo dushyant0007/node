@@ -52,7 +52,14 @@ const serviceSchema = new Schema({
         enum:['perDay','perHour']
     },
 
-    estimatedPriceDescription:String
+    estimatedPriceDescription:String,
+
+    albums: {
+        type: Map,
+        of:[{type:String}],
+
+        default: {}
+    }
 
 });
 

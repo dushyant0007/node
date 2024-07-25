@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Album Creator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        #albums {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .album {
+            border: 1px solid #ccc;
+            padding: 10px;
+            width: 200px;
+        }
+
+        .preview {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .preview img,
+        .preview video {
+            max-width: 100px;
+            max-height: 100px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Album Creator</h1>
+    <div>
+        <input type="text" id="albumName" placeholder="Enter album name">
+        <input type="hidden" id="serviceId" value="<%= serviceId %>" name="serviceId">
+        <button onclick="createAlbum()">Create Album</button>
+    </div>
+
+    <div id="albums"></div>
+
+    <script>
+        let albums = [];
+
+        function createAlbum() {
+            const albumName = document.getElementById('albumName').value;
+            const serviceId = document.getElementById('serviceId').value;
+            if (albumName) {
+                const album = { name: albumName, files: [], serviceId };
+                albums.push(album);
+                renderAlbums();
+                document.getElementById('albumName').value = '';
+            }
+        }
+
+        function renderAlbums() {
+            const albumsContainer = document.getElementById('albums');
+            albumsContainer.innerHTML = '';
+            albums.forEach((album, index) => {
+                const albumElement = document.createElement('div');
+                albumElement.className = 'album';
+                albumElement.innerHTML = `
+                    <h2>${album.name}</h2>
+                    <input type="file" multiple accept="image/*,video/*" onchange="uploadFiles(${index}, this.files)">
+                    <div class="preview"></div>
+                    <button onclick="uploadAlbum(${index})">Upload Album</button>
+                `;
+                albumsContainer.appendChild(albumElement);
+                renderPreview(index);
+            });
+        }
+
+        function uploadFiles(albumIndex, files) {
+            const album = albums[albumIndex];
+            album.files = [...album.files, ...files];
+            renderPreview(albumIndex);
+        }
+
+        function renderPreview(albumIndex) {
+            const album = albums[albumIndex];
+            const previewElement = document.querySelectorAll('.preview')[albumIndex];
+            previewElement.innerHTML = '';
+            album.files.forEach((file, fileIndex) => {
+                const fileElement = document.createElement(file.type.startsWith('image/') ? 'img' : 'video');
+                fileElement.src = URL.createObjectURL(file);
+                if (fileElement.tagName === 'VIDEO') {
+                    fileElement.setAttribute('controls', '');
+                }
+                const deleteButton = document.createElement('button');
+                deleteButton.textContent = 'Delete';
+                deleteButton.onclick = () => deleteFile(albumIndex, fileIndex);
+                const container = document.createElement('div');
+                container.appendChild(fileElement);
+                container.appendChild(deleteButton);
+                previewElement.appendChild(container);
+            });
+        }
+
+        function deleteFile(albumIndex, fileIndex) {
+            albums[albumIndex].files.splice(fileIndex, 1);
+            renderPreview(albumIndex);
+        }
+
+        function uploadAlbum(albumIndex) {
+            const album = albums[albumIndex];
+            const formData = new FormData();
+
+            formData.append('albumName', album.name);
+            formData.append('serviceId', album.serviceId);
+
+            album.files.forEach((file, index) => {
+                formData.append('files', file);
+            });
+
+            fetch('/vendor/dashboard/update-album', {
+                method: 'POST',
+                body: formData
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    console.log('Album uploaded successfully:', data);
+                    alert('Album uploaded successfully!');
+                })
+                .catch(error => {
+                    console.error('Error uploading album:', error);
+                    alert('Error uploading album. Please try again.');
+                });
+        }
+    </script>
+</body>
+
+</html>

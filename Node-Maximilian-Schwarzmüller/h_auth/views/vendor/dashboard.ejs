@@ -10,7 +10,7 @@
 <body>
     <h1>Hello</h1>
 
-    <form action="/vender/addNewService" method="post">
+    <form action="/vendor/dashboard/add-new-service" method="post">
         <fieldset style="display: inline;">
             <legend>Add Service</legend>
             <label for="servicType">Select Service Type</label>
@@ -24,17 +24,20 @@
 
     <fieldset style="display: inline;">
         <legend>Your Service</legend>
-        <% if (services.length == 0){ %>
+        <% if (services.length==0){ %>
             <h3>You have no services yet</h3>
-        <% } else { %>
-            <% for(service of services) { %>
-                <form action="/vender/getEditService" method="post">
-                    <label for="servicType"><%= service.serviceType %></label>
-                    <input type="hidden" name="serviceId" value="<%= service._id %>">
-                    <button type="submit">Edit Service</button>
-                </form>
-            <% } %>
-        <% } %>
+            <% } else { %>
+                <% for(service of services) { %>
+                    <form action="/vendor/dashboard/edit-service/<%= service._id %>" method="get">
+                        <label for="servicType">
+                            <%= service.serviceType %>
+                        </label>
+                        <input type="hidden" name="serviceId" value="<%= service._id %>">
+                        <button type="submit">Edit Service</button>
+                        <a href="/vendor/dashboard/edit-albums/<%= service._id %>">Edit Service Album</a>
+                    </form>
+                    <% } %>
+                        <% } %>
     </fieldset>
 
 </body>

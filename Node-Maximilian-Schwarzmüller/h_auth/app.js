@@ -3,7 +3,7 @@ const MONGO_CONNECTION_STRING = 'mongodb+srv://admin:s25IWKm3i7Hafoy6@cluster0.g
 const path = require('path')
 const User = require('./models/user')
 
-const fs =  require('fs')
+const fs = require('fs')
 
 const mongoose = require('mongoose')
 const express = require('express')
@@ -21,27 +21,26 @@ app.use(session({
     saveUninitialized: false,
     resave: false,
     cookie: { maxAge: 1000 * 60 * 60 * 60 },
-    store: mongo_session_store.create({mongoUrl:MONGO_CONNECTION_STRING})
-    })
+    store: mongo_session_store.create({ mongoUrl: MONGO_CONNECTION_STRING })
+})
 );
 
 app.use(async (req, res, next) => {
     if (req.session.user) {
         req.user = await User.findById(req.session.user._id);
     }
-    next() 
+    next()
 })
 
 // const shopRoutes = require('./routes/shop')
-const venderRoutes = require('./routes/vender')
+const vendorRoutes = require('./routes/vendor')
 
-app.use('/vender', venderRoutes)
+app.use('/vendor', vendorRoutes)
 // app.use('/shop',shopRoutes)
 
 
 app.use('/', (req, res) => {
-    // res.send('Route does not exists')
-    res.render('vender/test.ejs')
+    res.send('Route does not exists')
 })
 
 mongoose.connect(MONGO_CONNECTION_STRING)

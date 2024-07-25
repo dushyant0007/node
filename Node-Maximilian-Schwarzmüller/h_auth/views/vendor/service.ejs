@@ -106,11 +106,10 @@
 
 <body>
 
-    <form action="/vender/editService" method="post">
+    <form action="/vendor/dashboard/edit-service" method="post">
 
-        
         <div class="form-group">
-            
+
         </div>
 
         <div class="form-group">
@@ -146,8 +145,10 @@
         </div>
 
         <div class="form-group">
-            <label for="equipmentDetails">Equipment Details Example : Canon EOS 5D Mark IV, Nikon D850, Various Lenses</label>
-            <textarea wrap="soft" name="equipmentDetails" id="equipmentDetails" value="<%= service.equipmentDetails %>"></textarea>
+            <label for="equipmentDetails">Equipment Details Example : Canon EOS 5D Mark IV, Nikon D850, Various
+                Lenses</label>
+            <textarea wrap="soft" name="equipmentDetails" id="equipmentDetails"
+                value="<%= service.equipmentDetails %>"></textarea>
         </div>
 
         <div class="form-group">
@@ -161,7 +162,8 @@
         </div>
 
         <div class=" form-group">
-            <label for="travelTermsAndConditions">Travel Willingness and Terms & Condition Example : Willing to travel up to
+            <label for="travelTermsAndConditions">Travel Willingness and Terms & Condition Example : Willing to travel
+                up to
                 100 Km for a job extra charges etc .. </label>
             <textarea id="travelTermsAndConditions" wrap="soft" name="travelTermsAndConditions"
                 value="<%= service.travelTermsAndConditions %>"></textarea>
@@ -170,8 +172,9 @@
         <div class="form-group">
             <label for="estimatedPrice">Estimated Price</label>
             <div class="price-input-group">
-                <input type="number" id="estimatedPrice" name="estimatedPrice" value="<%= service.estimatedPrice %>" min="0">
-                <select id="priceTimeUnit" name="priceTimeUnit" >
+                <input type="number" id="estimatedPrice" name="estimatedPrice" value="<%= service.estimatedPrice %>"
+                    min="0">
+                <select id="priceTimeUnit" name="priceTimeUnit">
                     <option value="perDay">perDay</option>
                     <option value="perHour">PerHour</option>
                 </select>
@@ -185,18 +188,19 @@
             <label for="serviceStatus">Service Status</label>
             <div class="radio-group">
                 <label>
-                    <input type="radio" id="serviceStatus" name="serviceActiveStatus" value="true" <% if(service.serviceActiveStatus){%> checked <%}%> >
+                    <input type="radio" id="serviceStatus" name="serviceActiveStatus" value="true" <%
+                        if(service.serviceActiveStatus){%> checked <%}%> >
                         Active
                 </label>
                 <label>
-                    <input type="radio" id="serviceStatus" name="serviceActiveStatus" value="false" <% if(!service.serviceActiveStatus){%> checked <%}%> >
+                    <input type="radio" id="serviceStatus" name="serviceActiveStatus" value="false" <%
+                        if(!service.serviceActiveStatus){%> checked <%}%> >
                         Pause
                 </label>
             </div>
         </div>
 
         <input type="hidden" name="serviceId" value="<%= service._id %>">
-
         <button type="submit" class="update-button">Update</button>
 
     </form>

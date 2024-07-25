@@ -2,7 +2,7 @@
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
-const venderSchema = new Schema({
+const vendorSchema = new Schema({
 
     userId: {
         type: Schema.Types.ObjectId,
@@ -16,21 +16,21 @@ const venderSchema = new Schema({
     },
 
     name: {
-        type:String,
+        type: String,
         default: 'Update your name'
     },
 
     phoneNumber: {
-        type:Number,
+        type: Number,
         default: "1234567890"
     },
 
     address: {
-        type:String,
-        default:"Update You Address"
+        type: String,
+        default: "Update You Address"
     },
 
-    location:{
+    location: {
         latitude: Number,
         longitude: Number
     },
@@ -44,17 +44,17 @@ const venderSchema = new Schema({
         }
     ],
 
-    ratingsInfo:{
-        rating:{
-            type:Number,
-            default:0
+    ratingsInfo: {
+        rating: {
+            type: Number,
+            default: 0
         },
-        count:{
-            type:Number,
-            default:0
+        count: {
+            type: Number,
+            default: 0
         }
     }
 
 })
 
-module.exports = new mongoose.model('Vender', venderSchema)
+module.exports = new mongoose.model('vendor', vendorSchema)
