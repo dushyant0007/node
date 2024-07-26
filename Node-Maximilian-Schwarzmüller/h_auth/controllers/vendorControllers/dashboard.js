@@ -1,4 +1,5 @@
 const Service = require('../../models/service')
+const fs = require('fs')
 
 
 exports.getDashboard = async (req, res, next) => {
@@ -54,7 +55,9 @@ exports.postUpdateService = async (req, res, next) => {
 
 exports.getEditAlbums = async (req, res, next) => {
     const serviceId = req.params.serviceId
-    res.render('vendor/edit_albums.ejs',{serviceId})
+    const userId = req.user._id
+    const pageData = { serviceId, userId }
+    res.render('vendor/edit_albums.ejs', { pageData })
 }
 
 
@@ -63,41 +66,59 @@ exports.postUpdateAlbum = async (req, res) => {
     if (req.error) {
         console.log(req.error);
         res.status(400).json({ message: 'Error uploading album' });
-    } 
+    }
     else {
-        
+
         const albumName = req.body.albumName;
         const files = req.files;
         const serviceId = req.body.serviceId;
-    
+
         const fileNames = files.map(file => file.filename)
-    
 
-        const isAlbumAlreadyExists = await Service.findOne({_id: serviceId,['albums.' + albumName]: { $exists: true } })
 
-        if(isAlbumAlreadyExists)
+        const isAlbumAlreadyExists = await Service.findOne({ _id: serviceId, ['albums.' + albumName]: { $exists: true } })
+
+        if (isAlbumAlreadyExists)
             await Service.findOneAndUpdate(
-                {_id:serviceId},
-                { $push:{['albums.' + albumName]: { $each: fileNames } }},
+                { _id: serviceId },
+                { $push: { ['albums.' + albumName]: { $each: fileNames } } },
                 { new: true }
             );
         else
             await Service.findOneAndUpdate(
-                {_id:serviceId},
-                { $set:{['albums.' + albumName]: fileNames }},
+                { _id: serviceId },
+                { $set: { ['albums.' + albumName]: fileNames } },
                 { new: true }
             );
-        
 
-        res.json({ message: 'Album uploaded successfully', albumName,files });
+
+        res.json({ message: 'Album uploaded successfully', albumName, files });
     }
 }
 
+exports.deleteAlbumItem = async (req, res) => {
+    const serviceId = req.params.serviceId;
+    const albumName = req.body.albumName;
+    const fileName = req.body.fileName;
+
+    await Service.findByIdAndUpdate( serviceId,{ $pull: { [`albums.${albumName}`]: fileName } },);
+
+    const error = fs.unlink(`${__dirname}../../public/service_albums/${req.user._id}/${serviceId}/${albumName}/${fileName}`,(error)=> error)
+
+    if(error){
+        console.log(error)
+        return req.json(error)
+    }
+
+    return res.json('Item Deleted Successfully')
+}
 
 
-exports.getResource = async(req,res) => {
-    
-    // const filePath = req.query.fileName
-    res.send('TEST MODE')
+exports.getAlbums = async (req, res) => {
+
+    const serviceId = req.params.serviceId;
+    const currService = await Service.findById(serviceId, { albums: 1, _id: 0 })
+
+    res.json(currService.albums)
 
 }

@@ -55,7 +55,7 @@ const serviceSchema = new Schema({
     estimatedPriceDescription:String,
 
     albums: {
-        type: Map,
+        type: Object,
         of:[{type:String}],
 
         default: {}

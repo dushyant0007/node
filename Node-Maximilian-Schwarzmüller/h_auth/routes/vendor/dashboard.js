@@ -16,9 +16,10 @@ router.post('/edit-service',authMiddlewares.isVenderAuthenticated, vendorDashboa
 
 router.get('/edit-albums/:serviceId',authMiddlewares.isVenderAuthenticated, vendorDashboardController.getEditAlbums)
 router.post('/update-album',authMiddlewares.isVenderAuthenticated,fileUploadMiddlewares.updateAlbum(),vendorDashboardController.postUpdateAlbum)
+router.delete('/update-album/:serviceId',authMiddlewares.isVenderAuthenticated,vendorDashboardController.deleteAlbumItem)
 
 //fileName should be in query string
-router.get('/get-file-from-album',authMiddlewares.isVenderAuthenticated,vendorDashboardController.getResource)
+router.get('/get-albums/:serviceId',authMiddlewares.isVenderAuthenticated,vendorDashboardController.getAlbums)
 
 
 module.exports = router;

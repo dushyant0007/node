@@ -9,7 +9,7 @@ const multer = require('multer');
 function updateAlbum(){
     const storage = multer.diskStorage({
         destination: async function(req,file,cb){
-            const filePath = __dirname+'/../service_albums/'+req.user._id+'/'+req.body.serviceId+'/'+req.body.albumName
+            const filePath = __dirname+'/../public/service_albums/'+req.user._id+'/'+req.body.serviceId+'/'+req.body.albumName
             await fs.promises.mkdir(filePath,{recursive:true})
             return cb(null, filePath); 
         },
