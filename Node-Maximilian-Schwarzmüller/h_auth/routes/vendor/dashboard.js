@@ -11,13 +11,13 @@ const router = express.Router()
 router.get('/',authMiddlewares.isVenderAuthenticated, vendorDashboardController.getDashboard)
 
 router.post('/add-new-service',authMiddlewares.isVenderAuthenticated, vendorDashboardController.postAddNewService)
+
 router.get('/edit-service/:serviceId',authMiddlewares.isVenderAuthenticated, vendorDashboardController.getEditService)
 router.post('/edit-service',authMiddlewares.isVenderAuthenticated, vendorDashboardController.postUpdateService)
 
 router.get('/edit-albums/:serviceId',authMiddlewares.isVenderAuthenticated, vendorDashboardController.getEditAlbums)
 router.post('/update-album',authMiddlewares.isVenderAuthenticated,fileUploadMiddlewares.updateAlbum(),vendorDashboardController.postUpdateAlbum)
-router.delete('/update-album/:serviceId',authMiddlewares.isVenderAuthenticated,vendorDashboardController.deleteAlbumItem)
-
+router.delete('/update-album',authMiddlewares.isVenderAuthenticated,vendorDashboardController.deleteAlbumItem)
 //fileName should be in query string
 router.get('/get-albums/:serviceId',authMiddlewares.isVenderAuthenticated,vendorDashboardController.getAlbums)
 

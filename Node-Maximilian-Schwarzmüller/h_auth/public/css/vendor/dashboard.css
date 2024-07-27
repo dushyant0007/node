@@ -1,0 +1,97 @@
+:root {
+  --primary-color: #fe6464e8;
+  --secondary-color: #ff8f8c;
+  --tertiary-color: #ff9a9e;
+  --text-color: #444;
+  --background-color: #f9f5f2;
+  --border-color: #e0e0e0;
+  --button-hover-color: #e57f6f;
+}
+
+body {
+  font-family: 'Arial', sans-serif;
+  max-width: 80rem;
+  margin: 0 auto;
+  padding: 1.5rem;
+  background-color: var(--background-color);
+  color: var(--text-color);
+}
+
+h1 {
+  text-align: center;
+  color: var(--primary-color);
+  font-size: 2.5rem;
+  margin-bottom: 1.5rem;
+}
+
+form,
+fieldset {
+  background-color: #fff;
+  padding: 1.5rem;
+  border-radius: 0.75rem;
+  box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.1);
+  margin-bottom: 1.5rem;
+  border: 1px solid var(--border-color);
+}
+
+form select,
+form button {
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+form select {
+  background-color: #fff;
+  color: var(--text-color);
+  border: 1px solid var(--border-color);
+  margin-right: 1rem;
+}
+
+form select option {
+  background-color: #fff;
+}
+
+form button {
+  background-color: var(--primary-color);
+  color: #fff;
+}
+
+form button:hover {
+  background-color: var(--button-hover-color);
+}
+
+legend {
+  color: var(--secondary-color);
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+label {
+  display: block;
+  font-size: 1.25rem;
+  margin-bottom: 0.5rem;
+}
+
+h3 {
+  color: var(--text-color);
+  font-size: 1.25rem;
+}
+
+a {
+  display: inline-block;
+  margin-left: 1rem;
+  padding: 0.75rem 1.5rem;
+  background-color: var(--secondary-color);
+  color: #fff;
+  border-radius: 0.5rem;
+  text-decoration: none;
+  transition: background-color 0.3s;
+}
+
+a:hover {
+  background-color: var(--tertiary-color);
+}

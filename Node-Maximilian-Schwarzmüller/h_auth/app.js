@@ -29,7 +29,7 @@ app.use(session({
 
 app.use(async (req, res, next) => {
     if (req.session.user) {
-        req.user = await User.findById(req.session.user._id,{userType:1});
+        req.user = await User.findById(req.session.user._id,{userType:1,email:1});
     }
     next()
 })

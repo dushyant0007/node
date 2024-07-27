@@ -33,7 +33,6 @@ exports.postAddNewService = async (req, res, next) => {
 exports.getEditService = async (req, res, next) => {
     const service = await Service.findOne({ _id: req.params.serviceId, userId: req.user._id, });
     return res.render(`vendor/service.ejs`, { service });
-
 }
 
 
@@ -97,13 +96,15 @@ exports.postUpdateAlbum = async (req, res) => {
 }
 
 exports.deleteAlbumItem = async (req, res) => {
-    const serviceId = req.params.serviceId;
+    const serviceId = req.body.serviceId;
     const albumName = req.body.albumName;
     const fileName = req.body.fileName;
 
     await Service.findByIdAndUpdate( serviceId,{ $pull: { [`albums.${albumName}`]: fileName } },);
 
-    const error = fs.unlink(`${__dirname}../../public/service_albums/${req.user._id}/${serviceId}/${albumName}/${fileName}`,(error)=> error)
+    const itemPath = `${__dirname}/../../public/service_albums/${req.user._id}/${serviceId}/${albumName}/${fileName}`
+
+    const error = fs.unlink(itemPath,(error)=> error)
 
     if(error){
         console.log(error)

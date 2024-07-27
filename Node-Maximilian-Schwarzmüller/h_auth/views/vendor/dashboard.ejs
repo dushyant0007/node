@@ -4,42 +4,40 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Enhanced Design</title>
+    <link rel="stylesheet" href="/css/vendor/dashboard.css">
 </head>
 
 <body>
-    <h1>Hello</h1>
+    <h1>Service Management</h1>
 
     <form action="/vendor/dashboard/add-new-service" method="post">
-        <fieldset style="display: inline;">
-            <legend>Add Service</legend>
-            <label for="servicType">Select Service Type</label>
-            <select id="servicType" name="serviceType">
-                <option value="photographer">photographer</option>
-                <option value="videographer">videographer</option>
+        <fieldset>
+            <legend>Add New Service</legend>
+            <label for="serviceType">Select Service Type</label>
+            <select id="serviceType" name="serviceType">
+                <option value="photographer">Photographer</option>
+                <option value="videographer">Videographer</option>
             </select>
-            <button type="submit">Add New Service</button>
+            <button type="submit">Add Service</button>
         </fieldset>
     </form>
 
-    <fieldset style="display: inline;">
-        <legend>Your Service</legend>
-        <% if (services.length==0){ %>
+    <fieldset>
+        <legend>Your Services</legend>
+        <% if (services.length===0) { %>
             <h3>You have no services yet</h3>
             <% } else { %>
-                <% for(service of services) { %>
-                    <form action="/vendor/dashboard/edit-service/<%= service._id %>" method="get">
-                        <label for="servicType">
-                            <%= service.serviceType %>
-                        </label>
-                        <input type="hidden" name="serviceId" value="<%= service._id %>">
-                        <button type="submit">Edit Service</button>
+                <% for (const service of services) { %>
+                    <div>
+                        <h3><%= service.serviceType %></h3>
+                        <a href="/vendor/dashboard/edit-service/<%= service._id %>">Edit Service</a>
                         <a href="/vendor/dashboard/edit-albums/<%= service._id %>">Edit Service Album</a>
-                    </form>
+                    </div>
+                    
                     <% } %>
                         <% } %>
     </fieldset>
-
 </body>
 
 </html>

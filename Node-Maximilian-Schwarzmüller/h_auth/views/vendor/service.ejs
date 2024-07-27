@@ -7,17 +7,20 @@
     <title>Add Service</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Times New Roman', serif;
+            background-color: #da7e7e;
+            color: #333;
             margin: 2rem;
         }
 
         form {
-            max-width: 60rem;
+            max-width: 50rem;
             margin: 4rem auto;
             padding: 2rem;
-            border: 0.1rem solid #ccc;
+            border: 0.1rem solid #dcdcdc;
             border-radius: 1rem;
-            box-shadow: 0 0 1rem rgba(0, 0, 0, 0.1);
+            background: #fff;
+            box-shadow: 0 0 1rem rgba(0, 0, 0, 0.2);
         }
 
         .form-group {
@@ -26,49 +29,38 @@
 
         .form-group label {
             display: block;
+            font-size: 1.1rem;
             margin-bottom: 0.5rem;
         }
 
-        .form-group {
-
-            textarea,
-            input {
-                width: 100%;
-                padding: 1rem;
-                border: 0.1rem solid #ccc;
-                border-radius: 0.5rem;
-                resize: vertical;
-                min-height: 10rem;
-                box-sizing: border-box;
-            }
-
-            input {
-                min-height: 2.5rem;
-            }
-
-            .price-input-group {
-                margin-bottom: 1rem;
-                display: flex;
-                align-items: center;
-            }
-
-            .price-input-group input[type="number"] {
-                width: 30%;
-                margin-right: 1rem;
-            }
-
-            .price-input-group select {
-                width: 20%;
-                margin-right: 1rem;
-                padding: 1rem;
-                border: 0.1rem solid #ccc;
-                border-radius: 0.5rem;
-                box-sizing: border-box;
-            }
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 1rem;
+            border: 0.1rem solid #dcdcdc;
+            border-radius: 0.5rem;
+            box-sizing: border-box;
         }
 
-        h2 {
-            margin-top: 2rem;
+        .form-group textarea {
+            resize: vertical;
+            min-height: 10rem;
+        }
+
+        .price-input-group {
+            display: flex;
+            align-items: center;
+        }
+
+        .price-input-group input[type="number"] {
+            width: 30%;
+            margin-right: 1rem;
+        }
+
+        .price-input-group select {
+            width: 20%;
+            margin-right: 1rem;
         }
 
         .toggle-button {
@@ -77,7 +69,6 @@
 
         .radio-group {
             display: flex;
-            flex-direction: row;
             align-items: center;
         }
 
@@ -85,21 +76,24 @@
             margin-right: 2rem;
         }
 
-        .radio-group input[type="radio"] {
-            margin-right: 0.5rem;
-        }
-
         .update-button {
-            background-color: #4CAF50;
+            background-color: #e63946;
             color: #fff;
             padding: 0.5rem 1rem;
             border: none;
             border-radius: 0.5rem;
             cursor: pointer;
+            font-size: 1rem;
         }
 
         .update-button:hover {
-            background-color: #3e8e41;
+            background-color: #d62839;
+        }
+
+        h2 {
+            margin-top: 2rem;
+            font-size: 1.5rem;
+            color: #e63946;
         }
     </style>
 </head>
@@ -108,29 +102,23 @@
 
     <form action="/vendor/dashboard/edit-service" method="post">
 
-        <div class="form-group">
-
-        </div>
+        <h2>Service Details</h2>
 
         <div class="form-group">
-            <label for="businessName">Years of Experience</label>
+            <label for="businessName">Business Name</label>
             <input name="businessName" type="text" id="businessName" value="<%= service.businessName %>">
         </div>
 
         <div class="form-group">
-            <label for="serviceDescription">Detailed descriptions of the services offered</label>
-            <textarea wrap="soft" name="serviceDescription" id="serviceDescription"
-                value="<%= service.serviceDescription %>"></textarea>
+            <label for="serviceDescription">Detailed Description of Services</label>
+            <textarea name="serviceDescription" id="serviceDescription"
+                wrap="soft"><%= service.serviceDescription %></textarea>
         </div>
 
         <div class="form-group">
-            <label for="pricingPackages">Enter : Pricing Packages, Album Charges, Image Editing and Team Size
-                etc...</label>
-            <textarea wrap="soft" name="pricingPackages" id="pricingPackages"
-                value="<%= service.pricingPackages %>"></textarea>
+            <label for="pricingPackages">Pricing Packages and Additional Details</label>
+            <textarea name="pricingPackages" id="pricingPackages" wrap="soft"><%= service.pricingPackages %></textarea>
         </div>
-
-        <h2>Availability Calendar</h2>
 
         <div class="form-group">
             <label for="yearsOfExperience">Years of Experience</label>
@@ -140,20 +128,19 @@
 
         <div class="form-group">
             <label for="certificationsAndAwards">Certifications or Awards</label>
-            <textarea wrap="soft" name="certificationsAndAwards" id="certificationsAndAwards"
-                value="<%= service.certificationsAndAwards %>"></textarea>
+            <textarea name="certificationsAndAwards" id="certificationsAndAwards"
+                wrap="soft"><%= service.certificationsAndAwards %></textarea>
         </div>
 
         <div class="form-group">
-            <label for="equipmentDetails">Equipment Details Example : Canon EOS 5D Mark IV, Nikon D850, Various
-                Lenses</label>
-            <textarea wrap="soft" name="equipmentDetails" id="equipmentDetails"
-                value="<%= service.equipmentDetails %>"></textarea>
+            <label for="equipmentDetails">Equipment Details</label>
+            <textarea name="equipmentDetails" id="equipmentDetails"
+                wrap="soft"><%= service.equipmentDetails %></textarea>
         </div>
 
         <div class="form-group">
-            <label for="bio">Write about yourself and/or your organization ethics, values...etc</label>
-            <textarea wrap="soft" name="bio" id="bio" value="<%= service.bio %>"></textarea>
+            <label for="bio">About Yourself or Your Organization</label>
+            <textarea name="bio" id="bio" wrap="soft"><%= service.bio %></textarea>
         </div>
 
         <div class="form-group">
@@ -161,12 +148,10 @@
             <input id="spokenLanguages" type="text" name="spokenLanguages" value="<%= service.spokenLanguages %>">
         </div>
 
-        <div class=" form-group">
-            <label for="travelTermsAndConditions">Travel Willingness and Terms & Condition Example : Willing to travel
-                up to
-                100 Km for a job extra charges etc .. </label>
-            <textarea id="travelTermsAndConditions" wrap="soft" name="travelTermsAndConditions"
-                value="<%= service.travelTermsAndConditions %>"></textarea>
+        <div class="form-group">
+            <label for="travelTermsAndConditions">Travel Willingness and Terms & Conditions</label>
+            <textarea id="travelTermsAndConditions" name="travelTermsAndConditions"
+                wrap="soft"><%= service.travelTermsAndConditions %></textarea>
         </div>
 
         <div class="form-group">
@@ -175,25 +160,25 @@
                 <input type="number" id="estimatedPrice" name="estimatedPrice" value="<%= service.estimatedPrice %>"
                     min="0">
                 <select id="priceTimeUnit" name="priceTimeUnit">
-                    <option value="perDay">perDay</option>
-                    <option value="perHour">PerHour</option>
+                    <option value="perDay">Per Day</option>
+                    <option value="perHour">Per Hour</option>
                 </select>
             </div>
-            <label for="estimatedPriceDescription"> Price Descriptions (What is included in the price) </label>
-            <textarea id="estimatedPriceDescription" wrap="soft" name="estimatedPriceDescription"
-                value="<%= service.estimatedPriceDescription %>"></textarea>
+            <label for="estimatedPriceDescription">Price Description</label>
+            <textarea id="estimatedPriceDescription" name="estimatedPriceDescription"
+                wrap="soft"><%= service.estimatedPriceDescription %></textarea>
         </div>
 
-        <div class="toggle-button">
+        <div class="form-group toggle-button">
             <label for="serviceStatus">Service Status</label>
             <div class="radio-group">
                 <label>
-                    <input type="radio" id="serviceStatus" name="serviceActiveStatus" value="true" <%
+                    <input type="radio" id="serviceStatusActive" name="serviceActiveStatus" value="true" <%
                         if(service.serviceActiveStatus){%> checked <%}%> >
                         Active
                 </label>
                 <label>
-                    <input type="radio" id="serviceStatus" name="serviceActiveStatus" value="false" <%
+                    <input type="radio" id="serviceStatusPause" name="serviceActiveStatus" value="false" <%
                         if(!service.serviceActiveStatus){%> checked <%}%> >
                         Pause
                 </label>
@@ -201,10 +186,10 @@
         </div>
 
         <input type="hidden" name="serviceId" value="<%= service._id %>">
+
         <button type="submit" class="update-button">Update</button>
 
     </form>
-
 </body>
 
 </html>
