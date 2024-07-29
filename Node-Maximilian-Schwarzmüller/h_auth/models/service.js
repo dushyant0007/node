@@ -45,7 +45,10 @@ const serviceSchema = new Schema({
 
     travelTermsAndConditions:String,
 
-    estimatedPrice:Number,
+    estimatedPrice:{
+        type:Number,
+        default:0
+    },
 
     priceTimeUnit:{
         type:String,
@@ -57,8 +60,26 @@ const serviceSchema = new Schema({
     albums: {
         type: Object,
         of:[{type:String}],
+    },
 
-        default: {}
+    reviews: [
+        {
+            userId: Schema.Types.ObjectId,
+            rating: Number,
+            comment: String,
+            date: Date
+        }
+    ],
+
+    ratingsInfo: {
+        rating: {
+            type: Number,
+            default: 0
+        },
+        count: {
+            type: Number,
+            default: 0
+        }
     }
 
 });

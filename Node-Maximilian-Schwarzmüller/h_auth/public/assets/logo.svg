@@ -1,0 +1,12 @@
+<svg width="400" height="100" viewBox="0 0 400 100" xmlns="http://www.w3.org/2000/svg">
+  <!-- Icon: Intertwined Rings -->
+  <g fill="none" stroke="#d6736c" stroke-width="3">
+    <circle cx="50" cy="50" r="25" />
+    <circle cx="80" cy="50" r="25" />
+  </g>
+
+  <!-- Text -->
+  <text x="120" y="65" font-family="cursive" font-size="50" fill="#333" text-anchor="start">
+    Wed Soul
+  </text>
+</svg>

@@ -8,18 +8,21 @@ const express = require('express')
 const router = express.Router()
 
 
-router.get('/',authMiddlewares.isVenderAuthenticated, vendorDashboardController.getDashboard)
 
-router.post('/add-new-service',authMiddlewares.isVenderAuthenticated, vendorDashboardController.postAddNewService)
+router.get('/', vendorDashboardController.getDashboard)
 
-router.get('/edit-service/:serviceId',authMiddlewares.isVenderAuthenticated, vendorDashboardController.getEditService)
-router.post('/edit-service',authMiddlewares.isVenderAuthenticated, vendorDashboardController.postUpdateService)
+router.post('/add-new-service', vendorDashboardController.postAddNewService)
 
-router.get('/edit-albums/:serviceId',authMiddlewares.isVenderAuthenticated, vendorDashboardController.getEditAlbums)
-router.post('/update-album',authMiddlewares.isVenderAuthenticated,fileUploadMiddlewares.updateAlbum(),vendorDashboardController.postUpdateAlbum)
-router.delete('/update-album',authMiddlewares.isVenderAuthenticated,vendorDashboardController.deleteAlbumItem)
+router.get('/edit-service/:serviceId', vendorDashboardController.getEditService)
+router.post('/edit-service', fileUploadMiddlewares.uploadServiceProfilePicture(), vendorDashboardController.postUpdateService)
+router.post('/edit-service-profile-picture/:serviceId', fileUploadMiddlewares.uploadServiceProfilePicture(),vendorDashboardController.getServiceProfilePicture)
+
+router.get('/edit-albums/:serviceId', vendorDashboardController.getEditAlbums)
+router.post('/update-album', fileUploadMiddlewares.updateAlbum(), vendorDashboardController.postUpdateAlbum)
+router.delete('/update-album', vendorDashboardController.deleteAlbumItem)
+
 //fileName should be in query string
-router.get('/get-albums/:serviceId',authMiddlewares.isVenderAuthenticated,vendorDashboardController.getAlbums)
+router.get('/get-albums/:serviceId', vendorDashboardController.getAlbums)
 
 
 module.exports = router;

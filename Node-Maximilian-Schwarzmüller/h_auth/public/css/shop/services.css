@@ -1,0 +1,115 @@
+:root { 
+    --white-primary-bg-color: #fce8f6;
+    --shadow-color: #fdbcea;
+    --primary-button-color: #fad6f8; 
+    --button-hover-color: #ffc1ef; 
+    --text-color: #4a4a4a; 
+    --link-text-color: #4a4a4a; 
+    --link-button-bg-color: #fad6f8;
+    --link-button-hover-bg-color: #ffc1ef;
+    --badge-color: #ff7e75; /* Example color for the badge */
+}
+
+body {
+    margin: 0;
+    font-family: sans-serif;
+    background-color: var(--white-primary-bg-color);
+    color: var(--text-color);
+}
+
+
+
+.services {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 8rem 2rem 2rem; /* Add padding to the top to account for the fixed navbar */
+    background: linear-gradient(135deg, var(--white-primary-bg-color), var(--shadow-color));
+}
+
+.service-card {
+    background-color: #fff;
+    border-radius: 0.5rem;
+    box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.1);
+    margin: 1rem;
+    overflow: hidden;
+    transition: transform 0.3s ease;
+    width: calc(33% - 2rem);
+    text-decoration: none;
+    color: inherit;
+    border: 1.25rem solid #fff; /* 1px white border */
+}
+
+.service-card:hover {
+    transform: translateY(-0.5rem);
+}
+
+.service-card a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.service-card-image {
+    width: 100%;
+    padding-top: 56.25%; /* 16:9 Aspect Ratio */
+    position: relative;
+    background-color: #fff;
+}
+
+.service-card-image img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 0.5rem 0.5rem 0 0; /* Round the top corners */
+}
+
+.service-info {
+    padding: 1rem;
+}
+
+.service-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.service-name {
+    font-size: 1.5rem;
+    color: var(--text-color);
+    margin: 0;
+}
+
+.service-type, .service-rating, .service-price, .price-time-unit {
+    font-family: sans-serif;
+    color: var(--link-text-color);
+    margin: 0.5rem 0;
+}
+
+.service-rating {
+    font-size: 1rem;
+}
+
+.service-price-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 1rem;
+}
+
+.service-price {
+    font-size: 1.5rem;
+    color: var(--text-color);
+}
+
+.small-fontsize {
+    font-weight: 400;
+    font-size: 0.875rem;
+    color: var(--link-text-color);
+}
+
+.light-font-color {
+    color: #888;
+}

@@ -31,26 +31,33 @@ exports.postAddNewService = async (req, res, next) => {
 
 
 exports.getEditService = async (req, res, next) => {
-    const service = await Service.findOne({ _id: req.params.serviceId, userId: req.user._id, });
+    let service = {...await Service.findOne({ _id: req.params.serviceId, userId: req.user._id, },{albums:0})};
+    service = service._doc
+    service.userId = req.user._id;
     return res.render(`vendor/service.ejs`, { service });
 }
 
 
 exports.postUpdateService = async (req, res, next) => {
 
-    const serviceId = req.body.serviceId
-    const updatedService = { ...req.body }
-    delete updatedService.serviceId
+    const serviceId = req.body.serviceId;
+    const updatedService = { ...req.body };
+    delete updatedService.serviceId;
 
     /*
         serviceActiveStatus has its value('true'/false) in string form -> The mongoose convert it automatically to boolean
     */
 
-    await Service.updateOne({ _id: serviceId }, { $set: { ...updatedService } })
-
-    res.redirect('/vendor/dashboard')
+    await Service.updateOne({ _id: serviceId }, { $set: { ...updatedService } });
+    res.redirect('/vendor/dashboard');
 
 }
+
+
+exports.getServiceProfilePicture = (req,res) => {
+    res.json('Service Profile Picture Uploaded')
+}
+
 
 exports.getEditAlbums = async (req, res, next) => {
     const serviceId = req.params.serviceId

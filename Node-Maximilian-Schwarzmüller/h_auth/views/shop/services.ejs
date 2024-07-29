@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Playwrite+VN:wght@300&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/shop/shop.css">
+    <link rel="stylesheet" href="/css/shop/services.css">
+    <title>Wed Soul</title>
+</head>
+
+<body>
+    <%- include("./components/nav.ejs") %>
+
+    <div class="services">
+        <% for(const service of pageData.services) { %>
+            <div class="service-card">
+                <a href="/shop/services/<%= service._id %>">
+                    <div class="service-card-image">
+                        <img src="/service_albums/<%= service.userId %>/<%= service._id %>/serviceProfilePicture" alt="Service profile Picture">
+                    </div>
+                    <div class="service-info">
+                        <div class="service-header">
+                            <h3 class="service-name"><%= service.businessName %></h3>
+                            <p class="service-rating">⭐️ <%= service.ratingsInfo.rating %> <span class="light-font-color">(<%= service.ratingsInfo.count %> reviews)</span></p>
+                        </div>
+                        <p class="service-type"><%= service.serviceType %></p>
+                        <div class="service-price-container">
+                            
+                            <h3 class="service-price"> 
+                                <span class="small-fontsize light-font-color">Starting From</span>  <br>
+                                ₹ <%= service.estimatedPrice.toLocaleString() %> 
+                                <span class="small-fontsize "><%= service.priceTimeUnit %></span>
+                            </h3>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        <% } %>
+    </div>
+</body>
+
+</html>
