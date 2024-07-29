@@ -1,20 +1,25 @@
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Dancing+Script&family=Inconsolata:wght@200..900&display=swap');
+
 .wed-font {
     font-family: "Alex Brush", cursive;
     font-weight: 300;
     font-style: normal;
 }
 
-:root { 
+:root {
     --white-primary-bg-color: #fce8f6;
     --shadow-color: #fdbcea;
-    --primary-button-color: #fad6f8; 
-    --button-hover-color: #ffc1ef; 
-    --text-color: #4a4a4a; 
-    --link-text-color: #4a4a4a; 
+    --primary-button-color: #fad6f8;
+    --button-hover-color: #ffc1ef;
+    --text-color: #4a4a4a;
+    --link-text-color: #4a4a4a;
     --link-button-bg-color: #fad6f8;
     --link-button-hover-bg-color: #ffc1ef;
+}
+
+* {
+    box-sizing: border-box;
 }
 
 body {
@@ -27,53 +32,100 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 1rem 2rem;
+    padding: 1rem;
     background-color: var(--white-primary-bg-color);
     box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.1);
-    /* position:sticky; */
-    position:fixed;
+    position: fixed;
     width: 100%;
     top: 0;
     left: 0;
     z-index: 1000;
-    box-sizing: border-box; /* Ensure padding and border are included in element's total width and height */
 }
 
 .nav-bar .logo img {
-    max-height: 3.5rem; 
-    /* height: auto;  */
+    max-height: 2.5rem;
+    width: auto;
 }
 
-.nav-bar .logo {
-    max-height: 3.5rem; 
-}
-
-.nav-bar ul {
+.nav-menu {
     list-style: none;
     display: flex;
-    gap: 1rem;
+    gap: 0.5rem;
     margin: 0;
     padding: 0;
 }
 
-.nav-bar ul li {
-    margin: 0 0.3125rem; /* 5px */
-}
-
-.nav-bar ul li a {
+.nav-menu li a {
     text-decoration: none;
     color: var(--link-text-color);
-    font-size: 1.2rem;
-    padding: 0.5125rem 0.725rem; /* 5px 10px */
+    font-size: 1rem;
+    padding: 0.5rem 0.75rem;
     background-color: var(--link-button-bg-color);
-    border-radius: 0.3125rem; /* 5px */
+    border-radius: 0.3125rem;
     transition: background-color 0.3s ease, color 0.3s ease;
-    display: inline-block; /* Ensure padding and dimensions are applied properly */
+    display: inline-block;
 }
 
-.nav-bar ul li a:hover {
+.nav-menu li a:hover {
     background-color: var(--link-button-hover-bg-color);
     color: var(--text-color);
+}
+
+.menu-toggle {
+    display: none;
+    flex-direction: column;
+    justify-content: space-around;
+    width: 2rem;
+    height: 2rem;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    z-index: 10;
+}
+
+.menu-toggle span {
+    width: 2rem;
+    height: 0.25rem;
+    background: var(--text-color);
+    border-radius: 10px;
+    transition: all 0.3s linear;
+    position: relative;
+    transform-origin: 1px;
+}
+
+@media screen and (max-width: 768px) {
+    .menu-toggle {
+        display: flex;
+    }
+
+    .menu-toggle{
+        margin-right: 1rem;
+    }
+
+    .nav-menu {
+        flex-direction: column;
+        align-items: center;
+        position: fixed;
+        top: 4rem;
+        right: -100%;
+        width: 100%;
+        height: calc(100vh - 4rem);
+        background-color: var(--white-primary-bg-color);
+        transition: right 0.3s ease-in-out;
+        padding-top: 1rem;
+    }
+
+    .nav-menu.active {
+        right: 0;
+    }
+    .nav-bar{
+        align-items: normal;
+    }
+
+    .nav-menu li {
+        margin: 1rem 0;
+    }
 }
 
 .hero-section {
@@ -81,7 +133,8 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    min-height: 100vh;
+    padding: 2rem;
     background: linear-gradient(135deg, var(--white-primary-bg-color), var(--shadow-color));
     text-align: center;
     box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.1);
@@ -89,14 +142,14 @@ body {
 
 .hero-title {
     font-family: "Alex Brush", cursive;
-    font-size: 10rem; /* 100px */
+    font-size: 4rem;
     font-weight: bold;
     color: var(--text-color);
     margin: 0;
 }
 
 .hero-subtitle {
-    font-size: 1.5rem;
+    font-size: 1.25rem;
     color: var(--text-color);
     margin-top: 1rem;
 }
@@ -104,11 +157,11 @@ body {
 .hero-button {
     text-decoration: none;
     margin-top: 2rem;
-    padding: 0.625rem 1.25rem; /* 10px 20px */
+    padding: 0.625rem 1.25rem;
     background-color: var(--primary-button-color);
     color: var(--text-color);
     border: none;
-    border-radius: 0.3125rem; /* 5px */
+    border-radius: 0.3125rem;
     font-size: 1rem;
     cursor: pointer;
     transition: background-color 0.3s ease;
@@ -116,4 +169,38 @@ body {
 
 .hero-button:hover {
     background-color: var(--button-hover-color);
+}
+
+@media screen and (max-width: 768px) {
+    .nav-bar {
+        flex-direction: column;
+        padding: 1rem 0.5rem;
+    }
+
+    .nav-bar ul {
+        margin-top: 1rem;
+    }
+
+    .hero-title {
+        font-size: 3rem;
+    }
+
+    .hero-subtitle {
+        font-size: 1rem;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .nav-bar ul {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .nav-bar ul li {
+        margin: 0.5rem 0;
+    }
+
+    .hero-title {
+        font-size: 2.5rem;
+    }
 }
