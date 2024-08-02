@@ -7,7 +7,7 @@
     kitty.save().then(() => console.log('meow'));
 
 
-kitty.find().cursor() -> return all 
+kitty.find().cursor() -> return cursor
 kitty.find() -> return all 
 
 

@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Playwrite+VN:wght@300&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="/css/shop/shop.css">
+    <link rel="stylesheet" href="/css/shop/service.css">
+    <script src="/js/shop/shop.js"></script>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wed Soul</title>
+</head>
+
+<body>
+    <%- include("./components/nav.ejs") %>
+
+        <div class="service-container">
+            <header class="service-header">
+                <h1>
+                    <%= pageData.service.businessName %>
+                </h1>
+
+                <div class="service-type">
+                    <%= pageData.service.serviceType %>
+                </div>
+
+                <div class="rating">
+                    <span class="stars">
+                        ⭐️ <%= pageData.service.ratingsInfo.rating%>
+                    </span>
+                    <span class="review-count">(<%= pageData.service.ratingsInfo.count%> reviews)</span>
+                </div>
+            </header>
+
+            <main class="service-details">
+
+                <section class="description">
+                    <h2>Service Description</h2>
+                    <p>
+                        <%= pageData.service.serviceDescription %>
+                    </p>
+                </section>
+
+                <section class="bio">
+                    <h2>About Us</h2>
+                    <p>
+                        <%= pageData.service.bio%>
+                    </p>
+                </section>
+
+                <section class="experience">
+                    <h2>Experience</h2>
+                    <p>
+                        <%= pageData.service.yearsOfExperience %> years of experience
+                    </p>
+                </section>
+
+                <section class="base-package">
+                    <h2>Base Package </h2>
+                    <p class="price">
+                        <%= pageData.service.estimatedPrice %> INR <%= pageData.service.priceTimeUnit %>
+                    </p>
+                    <p>
+                        <%= pageData.service.estimatedPriceDescription %>
+                    </p>
+                </section>
+
+                <section class="packages">
+                    <h2>Packages</h2>
+                    <p>
+                        <%= pageData.service.pricingPackages %>
+                    </p>
+                </section>
+
+                <section class="equipment">
+                    <h2>Equipment</h2>
+                    <p>
+                        <%= pageData.service.equipmentDetails %>
+                    </p>
+                </section>
+
+                <section class="awards">
+                    <h2>Certifications and Awards</h2>
+                    <p>
+                        <%= pageData.service.certificationsAndAwards %>
+                    </p>
+                </section>
+
+                <section class="languages">
+                    <h2>Languages Spoken</h2>
+                    <p>
+                        <%= pageData.service.spokenLanguages %>
+                    </p>
+                </section>
+
+                <section class="travel">
+                    <h2>Travel Terms</h2>
+                    <p>
+                        <%= pageData.service.travelTermsAndConditions %>
+                    </p>
+                </section>
+            </main>
+        </div>
+
+        <!-- -------------------------------------------------------------------------- -->
+
+        <div class="albums-container">
+            <% for(let albumName in pageData.service.albums) { %>
+                <div class="album">
+                    <h2><%= albumName %></h2>
+                    <div class="album-scroll">
+                        <div class="album-grid">
+                            <% pageData.service.albums[albumName].forEach(imageUrl => { %>
+                                <div class="image-item">
+                                    <img src="/service_albums/<%= pageData.service.userId %>/<%= pageData.service._id %>/<%= albumName %>/<%= imageUrl %>" 
+                                         alt="<%= albumName %> image" 
+                                         onclick='showOverlay("/service_albums/<%= pageData.service.userId %>/<%= pageData.service._id %>/<%= albumName %>/<%= imageUrl %>")'>
+                                </div>
+                            <% }) %>
+                        </div>
+                    </div>
+                </div>
+            <% } %>
+        </div>
+        
+        <div id="overlay" class="overlay" onclick="hideOverlay()">
+            <img id="overlayImage" src="">
+        </div>
+
+        <!-- -------------------------------------------------------------------------- -->
+
+                <div class="booking-container">
+                    <div id="calendar-container">
+                        <button id="prev-month">Previous</button>
+                        <h2 id="current-month-year"></h2>
+                        <button id="next-month">Next</button>
+                        <div id="calendar"></div>
+                    </div>
+                    <div id="booking-form" style="display: none;">
+                        <h2>Selected Dates:</h2>
+                        <ul id="selected-dates"></ul>
+                        <!-- <input type="text" id="name" placeholder="Your Name"> -->
+                        <button onclick="bookDates()">Book Selected Dates</button>
+                    </div>
+                </div>
+
+                <input name="serviceId" type="hidden" value="<%= pageData.service._id %>">
+
+                <script src="/js/shop/service.js"></script>
+</body>
+
+</html>

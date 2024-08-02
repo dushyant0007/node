@@ -8,7 +8,7 @@ exports.getDashboard = async (req, res, next) => {
 };
 
 
-const serviceTypes = new Set(['photographer', 'videographer'])
+const serviceTypes = new Set(['photographer', 'videographer','foodStall'])
 
 exports.postAddNewService = async (req, res, next) => {
 

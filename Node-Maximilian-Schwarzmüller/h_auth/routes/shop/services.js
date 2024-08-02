@@ -5,7 +5,8 @@ const router = express.Router();
 
 router.get('/',shopServicesController.getServices);
 router.get('/:serviceId',shopServicesController.getService);
-
+router.get('/:serviceId/dates',shopServicesController.getDates);
+router.post('/book',shopServicesController.postBook)
 
 
 module.exports = router;

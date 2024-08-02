@@ -21,7 +21,7 @@ const serviceSchema = new Schema({
     },
     serviceType:{
         type:String,
-        enum:['photographer','videographer'],
+        enum:['photographer','videographer','foodStall'],
         required:true  
     },
     serviceActiveStatus:{

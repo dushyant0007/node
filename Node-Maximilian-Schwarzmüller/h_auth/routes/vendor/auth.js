@@ -5,12 +5,13 @@ const express = require('express')
 const router = express.Router()
 
 
-router.get('/login',authMiddlewares.isVenderNotAuthenticated,vendorAuthController.getLogin)
-router.post('/login',authMiddlewares.isVenderNotAuthenticated, vendorAuthController.postLogin)
+router.get('/login',vendorAuthController.getLogin)
+router.post('/login', vendorAuthController.postLogin)
 // ------------
 
-router.get('/signup',authMiddlewares.isVenderNotAuthenticated,vendorAuthController.getSignUp)
-router.post('/signup',authMiddlewares.isVenderNotAuthenticated,vendorAuthController.postSignUp)
+router.get('/signup',vendorAuthController.getSignUp)
+router.post('/signup',vendorAuthController.postSignUp)
+// ------------
 
 
 module.exports = router

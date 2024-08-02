@@ -35,7 +35,8 @@ body {
     padding: 1rem;
     background-color: var(--white-primary-bg-color);
     box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.1);
-    position: fixed;
+    /* position: fixed; */
+    position: static;
     width: 100%;
     top: 0;
     left: 0;

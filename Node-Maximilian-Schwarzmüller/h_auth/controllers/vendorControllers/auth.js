@@ -51,4 +51,11 @@ exports.postSignUp = async (req, res, next) => {
     return res.redirect('/vendor/profile')
 }
 
+exports.getLogout = async(req,res,next) => {
+    console.log('---=----')
+    await req.session.destroy((err)=>{console.log(err,'logout controller error')});
+    req.user = null;
+
+    return res.redirect('/vendor/auth/login');
+}
 

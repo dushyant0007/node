@@ -14,7 +14,7 @@ router.get('/', vendorDashboardController.getDashboard)
 router.post('/add-new-service', vendorDashboardController.postAddNewService)
 
 router.get('/edit-service/:serviceId', vendorDashboardController.getEditService)
-router.post('/edit-service', fileUploadMiddlewares.uploadServiceProfilePicture(), vendorDashboardController.postUpdateService)
+router.post('/edit-service', vendorDashboardController.postUpdateService)
 router.post('/edit-service-profile-picture/:serviceId', fileUploadMiddlewares.uploadServiceProfilePicture(),vendorDashboardController.getServiceProfilePicture)
 
 router.get('/edit-albums/:serviceId', vendorDashboardController.getEditAlbums)
