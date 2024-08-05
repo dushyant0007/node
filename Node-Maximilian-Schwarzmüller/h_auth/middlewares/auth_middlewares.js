@@ -1,40 +1,46 @@
 
-function isVenderAuthenticated(req,res,next) {
+function isVenderAuthenticated(req, res, next) {
     if (!req.session.user || req.session.user.userType != 'vendor') {
-        console.log(req.session.user,'auth-middleware')
+        console.log(req.session.user, 'auth-middleware')
         return res.redirect('/vendor/auth/login');
     }
     else
         next();
 }
 
-function isVenderNotAuthenticated(req,res,next) {
+function isVenderNotAuthenticated(req, res, next) {
     if (req.session.user && req.session.user.userType == 'vendor') {
-        console.log(req.session.user,'auth-middleware')
+        console.log(req.session.user, 'auth-middleware')
         return res.redirect('/vendor/dashboard');
     }
     else
         next();
 }
 
- 
 
-function isCustomerAuthenticated(req,res,next) {
+
+function isCustomerAuthenticated(req, res, next) {
     if (!req.session.user || req.session.user.userType != 'customer') {
-        console.log(req.session.user,'auth-middleware')
-        return res.redirect('/shop/login');
+        console.log(req.session.user, 'auth-middleware -a')
+        return res.json({url:'/shop/auth/login'});
     }
     else
         next();
 }
-function isCustomerNotAuthenticated(req,res,next) {
+function isCustomerNotAuthenticated(req, res, next) {
     if (req.session.user && req.session.user.userType == 'customer') {
-        console.log(req.session.user,'auth-middleware')
-        return res.redirect('/shop');
+        console.log(req.session.user, 'auth-middleware -b')
+        return res.redirect('/shop/home');
     }
-    else    
+    else
         next();
 }
 
 
-module.exports = {isVenderAuthenticated,isVenderNotAuthenticated}
+module.exports = {
+    isVenderAuthenticated,
+    isVenderNotAuthenticated,
+
+    isCustomerAuthenticated,
+    isCustomerNotAuthenticated
+}

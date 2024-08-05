@@ -12,7 +12,14 @@
     </div>
     <ul class="nav-menu">
         <li><a href="/shop/services">Services</a></li>
-        <li><a href="/shop/login">Login</a></li>
-        <li><a href="/shop/signup">Signup</a></li>
+        <% if(isUserAuthenticated) {%>
+            <li><a href="/shop/logout">Logout</a></li>
+            <li><a href="/shop/profile/bookings">Bookings</a></li>
+            <li><a href="/shop/profile">Profile</a></li>
+        <% }else{ %>
+            <li><a href="/shop/auth/login">Login</a></li>
+            <li><a href="/shop/auth/signup">Signup</a></li>
+        <% } %>
+
     </ul>
 </nav>

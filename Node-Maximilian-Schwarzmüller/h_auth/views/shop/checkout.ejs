@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wed Soul</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Playwrite+VN:wght@300&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/shop/shop.css">
+    <script src="/js/shop/shop.js"></script>
+  </head>
+<body>
+    <%- include("./components/nav.ejs") %>
+
+    <img style="width: 10%;" src="/service_albums/<%= pageData.service.userId %>/<%= pageData.service._id %>/serviceProfilePicture" alt="Service Profile Picture">
+
+    <h1>Checkout Page</h1>
+
+    <h2>Book <%= pageData.service.serviceType %></h2>
+    <p>For Dates -></p>
+    <ul>
+    <% for(const date of pageData.dates){ %>
+        <li><%= date %></li>
+    <% } %>
+    </ul>
+    
+    <p>Price: <%= pageData.service.estimatedPrice %></p>
+
+    <button id="order-btn">Pay Now</button>
+
+</body>
+</html>

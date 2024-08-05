@@ -19,7 +19,7 @@ let serviceId = '';
 
 async function fetchDates() {
     try {
-        serviceId = document.querySelector('[name="serviceId"]').value
+        serviceId = document.querySelector('input[name="serviceId"]').value
         const response = await fetch(`/shop/services/${serviceId}/dates`);
         const data = await response.json();
         bookedDates = data.booked || [];
@@ -113,25 +113,27 @@ function updateSelectedDates() {
 }
 
 function bookDates() {
-
-    fetch('/shop/services/book', {
+    fetch(`/shop/profile/checkout/${serviceId}`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ serviceId, dates: selectedDates }),
+        body: JSON.stringify({ serviceId, dates: selectedDates}),
     })
-    .then(response => response.json())
-    .then(data => {
-        alert(data.message);
-        selectedDates = [];
-        updateSelectedDates();
-        generateCalendar();
+    .then(response => {
+        return response.json().then(response => {
+            window.location = `${response.url}`
+        });
     })
-    .catch(error => {
-        console.error('Error:', error);
-        alert('An error occurred while booking.');
-    });
+        .then(() => {
+            selectedDates = [];
+            updateSelectedDates();
+            generateCalendar();
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('An error occurred while booking.');
+        });
 }
 
 function changeMonth(delta) {

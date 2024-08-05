@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wed Soul - Booking Details</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Playwrite+VN:wght@300&display=swap" rel="stylesheet">
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/shop/shop.css">
+</head>
+<body>
+    <%- include("./components/nav.ejs") %>
+
+    <main class="container mt-5">
+        <h1 class="mb-4">Booking Details 🚎</h1>
+        
+        <section class="booking-info mb-5">
+            <h2 class="h4 mb-3">Booking Information</h2>
+            <ul class="list-group">
+                <li class="list-group-item"><strong>Booking ID:</strong> <%= pageData.booking._id %></li>
+                <li class="list-group-item"><strong>Dates:</strong> <%= pageData.booking.dates %></li>
+                <li class="list-group-item"><strong>Price Paid:</strong> $<%= pageData.booking.price.toFixed(2) %></li>
+                <li class="list-group-item"><strong>Payment Status:</strong> <%= pageData.booking.paymentStatus %></li>
+                <li class="list-group-item"><strong>Business Name:</strong> <%= pageData.booking.serviceId.businessName %></li>
+                <li class="list-group-item"><strong>Service Type:</strong> <%= pageData.booking.serviceId.serviceType %></li>
+            </ul>
+        </section>
+
+        <section class="review-form">
+            <h2 class="h4 mb-3">Leave a Review</h2>
+            <form action="/shop/profile/bookings/<%= pageData.booking._id %>/review" method="post">
+                <div class="mb-3">
+                    <label for="rating" class="form-label">Rating</label>
+                    <input type="range" class="form-range" min="1" max="10" id="rating" name="rating" value="<%= pageData.booking.review.rating %>">
+                    <div class="d-flex justify-content-between">
+                        <span>1</span>
+                        <span>5</span>
+                        <span>10</span>
+                    </div>
+                </div>
+                
+                <div class="mb-3">
+                    <label for="comment" class="form-label">Comment</label>
+                    <textarea class="form-control" id="comment" name="comment" rows="3"><%= pageData.booking.review.comment %></textarea>
+                </div>
+                
+                <button type="submit" class="btn btn-primary">Submit Review</button>
+            </form>
+        </section>
+    </main>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    
+    <!-- Custom JS -->
+    <script src="/js/shop/shop.js"></script>
+</body>
+</html>

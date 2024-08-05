@@ -35,26 +35,26 @@ const vendorSchema = new Schema({
         longitude: Number
     },
 
-    reviews: [
-        {
-            userId: Schema.Types.ObjectId,
-            rating: Number,
-            comment: String,
-            date: Date
-        }
-    ],
+    // reviews: [
+    //     {
+    //         userId: Schema.Types.ObjectId,
+    //         rating: Number,
+    //         comment: String,
+    //         date: Date
+    //     }
+    // ],
 
-    ratingsInfo: {
-        rating: {
-            type: Number,
-            default: 0
-        },
-        count: {
-            type: Number,
-            default: 0
-        }
-    }
+    // ratingsInfo: {
+    //     rating: {
+    //         type: Number,
+    //         default: 0
+    //     },
+    //     count: {
+    //         type: Number,
+    //         default: 0
+    //     }
+    // }
 
-})
+});
 
-module.exports = new mongoose.model('vendor', vendorSchema)
+module.exports = new mongoose.model('Vendor', vendorSchema)

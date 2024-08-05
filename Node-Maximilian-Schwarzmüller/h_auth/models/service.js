@@ -62,14 +62,14 @@ const serviceSchema = new Schema({
         of:[{type:String}],
     },
 
-    reviews: [
-        {
-            userId: Schema.Types.ObjectId,
-            rating: Number,
-            comment: String,
-            date: Date
-        }
-    ],
+    // reviews: [
+    //     {
+    //         userId: Schema.Types.ObjectId,
+    //         rating: Number,
+    //         comment: String,
+    //         date: Date
+    //     }
+    // ],
 
     ratingsInfo: {
         rating: {

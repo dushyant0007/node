@@ -111,46 +111,47 @@
         <div class="albums-container">
             <% for(let albumName in pageData.service.albums) { %>
                 <div class="album">
-                    <h2><%= albumName %></h2>
+                    <h2>
+                        <%= albumName %>
+                    </h2>
                     <div class="album-scroll">
                         <div class="album-grid">
-                            <% pageData.service.albums[albumName].forEach(imageUrl => { %>
+                            <% pageData.service.albums[albumName].forEach(imageUrl=> { %>
                                 <div class="image-item">
-                                    <img src="/service_albums/<%= pageData.service.userId %>/<%= pageData.service._id %>/<%= albumName %>/<%= imageUrl %>" 
-                                         alt="<%= albumName %> image" 
-                                         onclick='showOverlay("/service_albums/<%= pageData.service.userId %>/<%= pageData.service._id %>/<%= albumName %>/<%= imageUrl %>")'>
+                                    <img src="/service_albums/<%= pageData.service.userId %>/<%= pageData.service._id %>/<%= albumName %>/<%= imageUrl %>"
+                                        alt="<%= albumName %> image"
+                                        onclick='showOverlay("/service_albums/<%= pageData.service.userId %>/<%= pageData.service._id %>/<%= albumName %>/<%= imageUrl %>")'>
                                 </div>
-                            <% }) %>
+                                <% }) %>
                         </div>
                     </div>
                 </div>
-            <% } %>
+                <% } %>
         </div>
-        
+
         <div id="overlay" class="overlay" onclick="hideOverlay()">
             <img id="overlayImage" src="">
         </div>
 
         <!-- -------------------------------------------------------------------------- -->
 
-                <div class="booking-container">
-                    <div id="calendar-container">
-                        <button id="prev-month">Previous</button>
-                        <h2 id="current-month-year"></h2>
-                        <button id="next-month">Next</button>
-                        <div id="calendar"></div>
-                    </div>
-                    <div id="booking-form" style="display: none;">
-                        <h2>Selected Dates:</h2>
-                        <ul id="selected-dates"></ul>
-                        <!-- <input type="text" id="name" placeholder="Your Name"> -->
-                        <button onclick="bookDates()">Book Selected Dates</button>
-                    </div>
-                </div>
+        <div class="booking-container">
+            <div id="calendar-container">
+                <button id="prev-month">Previous</button>
+                <h2 id="current-month-year"></h2>
+                <button id="next-month">Next</button>
+                <div id="calendar"></div>
+            </div>
+            <div id="booking-form" style="display: none;">
+                <h2>Selected Dates:</h2>
+                <ul id="selected-dates"></ul>
+                <!-- <input type="text" id="name" placeholder="Your Name"> -->
+                <button onclick="bookDates()">Book Selected Dates</button>
+            </div>
+        </div>
 
-                <input name="serviceId" type="hidden" value="<%= pageData.service._id %>">
-
-                <script src="/js/shop/service.js"></script>
+        <input name="serviceId" type="hidden" value="<%= pageData.service._id %>">
+        <script src="/js/shop/service.js"></script>
 </body>
 
 </html>
